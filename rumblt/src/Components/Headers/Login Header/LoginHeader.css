@@ -1,0 +1,43 @@
+#navBar{
+    background: #36465d;
+    height: 60px;
+    border-bottom: #505e72 solid 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#iconContainer{
+    
+    width: 450px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+#logoContainer{
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+#icon{
+    height: 30px;
+    width: auto;
+    fill: pink;
+}
+
+#edit{
+    height: 35px;
+}
+
+#logo{
+    height: 30px;
+    width: auto;
+
+    
+}
+
+path{
+    fill: pink;
+}

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
+import LoginHeader from '../Headers/Login Header/LoginHeader'
 
+import './Login.css'
 
 export default class Login extends Component{
     constructor(){
@@ -9,7 +11,12 @@ export default class Login extends Component{
 
     render(){
         return(
-            <div>
+            <div id="loginMain">
+
+                <header>
+                <LoginHeader/>
+                </header>
+
                 LOGIN
             </div>
         )
