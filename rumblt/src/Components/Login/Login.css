@@ -4,7 +4,6 @@
 }
 
 #mainsignin{
-    background: white;
     height: 300px;
     width: 400px;
     display: flex;
@@ -12,8 +11,25 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    padding-bottom: 80px;
 }
+
 #fulllogo>img{
     width: 300px;
-    
+    padding: 20px;
+}
+
+#subtitle{
+    color: white;
+}
+#subtitle>div{
+    padding: 5px;
+}
+
+.center{
+    height: 85%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

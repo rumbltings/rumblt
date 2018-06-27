@@ -18,7 +18,7 @@ export default class Login extends Component{
     }
 
     getRandomImage(){
-        var queries = ['shiba', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'adventuretime', 'tumblr', 'disney', 'food'];
+        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'tumblr', 'disney', 'food', 'coffee', 'animals'];
 
         var query= queries[Math.floor(Math.random()*queries.length)]
 
@@ -39,8 +39,7 @@ export default class Login extends Component{
                 <LoginHeader/>
                 
                 </header>
-                <body>
-                    
+                <div className='center'>
                 <div id="mainsignin">
                 <div id="fulllogo">
                 <img src={rumblt} alt=""/>
@@ -60,7 +59,7 @@ export default class Login extends Component{
                 Login
                 </div>
                 </div>
-                </body>
+                </div>
             </div>
         )
     }
