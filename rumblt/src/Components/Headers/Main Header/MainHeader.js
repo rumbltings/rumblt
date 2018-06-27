@@ -10,7 +10,7 @@ export default class MainHeader extends Component{
     render(){
         return(
             <div>
-                MAIN HEADER
+                MAIN HEADER.
             </div>
         )
     }
