@@ -1,0 +1,66 @@
+#navBar{
+    background: #36465d;
+    height: 60px;
+    border-bottom: #505e72 solid 1px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#iconContainer{
+    
+    width: 450px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+}
+
+#logoContainer{
+    display: flex;
+    align-items: center;
+    
+}
+
+#icon{
+    height: 30px;
+    width: auto;
+    fill: pink;
+}
+
+#edit{
+    height: 35px;
+}
+
+#logo{
+    height: 35px;
+    width: auto;
+    padding-left: 25px;
+    padding-right: 15px;
+    
+}
+
+.glass{
+    height: 22px;
+    width: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#search{
+    background: #2f3d51;
+    width: 50vw;
+    max-width: 600px;
+    height: 60%;
+    border-radius: 1%;
+    display: flex;
+    color: #919aa7;
+    
+}
+#searchbar{
+    display: flex;
+    align-items: center;
+}
+
+path{
+    fill: pink;
+}
