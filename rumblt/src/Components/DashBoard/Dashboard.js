@@ -4,30 +4,73 @@
 //Chat Display
 //Random Post
 import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
-import withAuthorization from '../../withAuthorization';
 import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
-import SignOutButton from '../Login/signOut';
+import './Dashboard.css'
+import DashFeed from './DashFeed/DashFeed'
 
-const Dashboard = ({ authUser}) => (
-    <div>
-      <MainHeader/>
-    <h1>User: {authUser.uid}</h1>
-    <h1>Email: {authUser.email}</h1>
-    <h1>Name: </h1>
-    <br/>
-    <SignOutButton/>
-    </div>
-)
-const mapStateToProps = (state) => ({
-    authUser: state.sessionState.authUser,
-  });
-  
-  const authCondition = (authUser) => !!authUser;
-  
-  export default compose(
-    withAuthorization(authCondition),
-    connect(mapStateToProps)
-  )(Dashboard);
+export default class Dashboard extends Component{
+    constructor(){
+        super()
+        this.state={
+            posts: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+            isDashCurrent: false
+        }
+
+    }
+
+    componentDidMount(){
+        document.body.background = '#36465d';
+        this.setState({isDashCurrent: true})
+    }
+    
+    componentWillUnmount(){
+        this.setState({isDashCurrent: false})
+    }
+
+    render(){
+        return(
+            <div id='maindash'>
+                <div id='headerdiv'>
+                    <MainHeader isDashCurrent={this.state.isDashCurrent}/>
+                </div>
+                <div id="maincontent">
+                <div id="dashleft">
+
+                <div className="dashfeedtop">
+
+                    <div className="profileimage">
+                    image
+                    </div>
+                    <div className="createnew">
+                    create new bar goes here
+                    </div>
+                </div>
+
+                    <div className="feed">
+                    {this.state.posts.map(post=>{
+                        return (
+                            <div key={post}>
+                                <DashFeed/>
+                            </div>
+                        )
+                    })}
+                    </div>
+                </div>
+
+                <div id="dashright">
+                    <div className="chat">
+                        Chat goes here
+                    </div>
+
+                    <div className="randompost">
+                    Random Post Goes HERE
+                    </div>
+                </div>
+
+
+                </div>
+            </div>
+        )
+    }
+}
