@@ -1,6 +1,6 @@
 #loginMain{
     height: 100vh;
-    background: rgba(0, 0, 0, 0.199);
+    
 }
 
 #mainsignin{
@@ -55,7 +55,9 @@
     color: #529ecc;
 }
 
-
+.hide{
+    display: none;
+}
 
 #loginbutton{
     margin-top: 12px;
@@ -73,4 +75,9 @@
 #loginbutton:hover{
     background: rgb(83, 83, 83);
     color: white;
+}
+
+#registerinfo{
+    background: white;
+    height: 300px;
 }
