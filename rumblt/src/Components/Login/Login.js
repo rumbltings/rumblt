@@ -3,6 +3,9 @@ import axios from 'axios'
 import LoginHeader from '../Headers/Login Header/LoginHeader';
 import rumblt from '../Headers/Login Header/icons/rumblt.svg';
 import './Login.css'
+import {Link} from 'react-router-dom';
+import LoginBoxes from './LoginBoxes';
+
 
 export default class Login extends Component{
     constructor(){
@@ -56,7 +59,11 @@ export default class Login extends Component{
                 Get Started
                 </div>
                 <div id="loginbutton">
-                Login
+               
+                <button>Login</button>
+               
+                <LoginBoxes/>
+              
                 </div>
                 </div>
                 </div>

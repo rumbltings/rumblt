@@ -21,7 +21,7 @@ export default class MainHeader extends Component{
         return(
             <div id='navBar'>
                 <div id='logoContainer'>
-                    <Link><img id='logo' src={logo} alt="Link to dashboard"/></Link>
+                    <Link to="/dashboard"><img id='logo' src={logo} alt="Link to dashboard"/></Link>
                     <div id="search">
                     <div id="searchbar">
                     <img className='glass' src={search} alt="Search icon"/>
