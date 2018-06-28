@@ -34,7 +34,6 @@ export default class Explore extends Component{
 
     render(){
         return(
-<<<<<<< HEAD
             <div>
               Explore
               <MainHeader />
@@ -69,13 +68,6 @@ export default class Explore extends Component{
                   })}
                 </div>
               </section>
-=======
-            <div id="exploremain">
-                <header>
-                    <MainHeader isExploreCurrent={this.state.isExploreCurrent}/>
-                </header>
-                Explore
->>>>>>> master
             </div>
         )
     }
