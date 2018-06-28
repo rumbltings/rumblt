@@ -5,11 +5,12 @@ import Explore from './Components/Explore/Explore';
 import Login from './Components/Login/Login';
 import Profile from './Components/Profile/Profile';
 import './App.css';
+import withAuthentication from './withAuthentication';
 
-class App extends Component {
-  render() {
-    return (
+const App = () => {
+    return(
       <div className="App">
+     
        <HashRouter>
          <Switch>
            <Route path='/' component={Login} exact/>
@@ -18,10 +19,9 @@ class App extends Component {
            <Route path='/profile/:username' component={Profile}/>
          </Switch>
        </HashRouter>
-        
+     
       </div>
-    );
-  }
-}
+    )
+};
 
-export default App;
+export default withAuthentication(App);
