@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Dashfeed.css'
 
 
 export default class DashFeed extends Component{
@@ -9,8 +10,22 @@ export default class DashFeed extends Component{
 
     render(){
         return(
-            <div>
-                DashFeed
+            <div id='maindashfeed'>
+                <div className="posterimage">
+                Poster Image
+                </div>
+
+                <div className="postdisplay">
+                <div className="pdheader">
+                Post Header
+                </div>
+                <div className="pdcontent">
+                Content
+                </div>
+                <div className="pdfooter">
+                FOOTER
+                </div>
+                </div>
             </div>
         )
     }

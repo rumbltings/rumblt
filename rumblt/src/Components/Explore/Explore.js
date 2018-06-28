@@ -7,22 +7,26 @@ export default class Explore extends Component{
     constructor(){
         super()
         this.state={
-            currentUser:{
-                
-            }
+            isExploreCurrent: false
         }
 
     }
 
     componentDidMount(){
         document.body.background = '#36465d';
+        this.setState({isExploreCurrent: true})
     }
+    
+    componentWillUnmount(){
+        this.setState({isExploreCurrent: false})
+    }
+    
 
     render(){
         return(
             <div id="exploremain">
                 <header>
-                    <MainHeader/>
+                    <MainHeader isExploreCurrent={this.state.isExploreCurrent}/>
                 </header>
                 Explore
             </div>
