@@ -37,28 +37,39 @@ export default class Login extends Component{
 
                 <header>
                 <LoginHeader/>
-                
                 </header>
+
                 <div className='center'>
+
                 <div id="mainsignin">
-                <div id="fulllogo">
-                <img src={rumblt} alt=""/>
-                </div>
+
+                    <div id="fulllogo">
+                        <img src={rumblt} alt=""/>
+                    </div>
+
                 <div id="subtitle">
-                <div className="subtop">
-                Come for what you discover.
+
+                    <div className="subtop">
+                        Come for what you discover.
+                    </div>
+
+                    <div className="subbottom">
+                        Stay for what you love.
+                    </div>
+
                 </div>
-                Stay for what you love.
-                <div className="subbottom">
-                </div>
-                </div>
+
+                
                 <div id="getstarted">
-                Get Started
+                    Get Started
                 </div>
+
                 <div id="loginbutton">
-                Login
+                    Log In
                 </div>
+
                 </div>
+
                 </div>
             </div>
         )
