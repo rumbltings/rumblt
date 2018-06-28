@@ -1,0 +1,22 @@
+#maindashfeed{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.posterimage{
+    background: palevioletred;
+    height: 64px;
+    width: 64px;
+    border-radius: 4px;
+    position: sticky;
+    top: 74px;
+}
+
+.postdisplay{
+    width: 540px;
+    height: 500px;
+    background: white;
+    border-radius: 4px;
+}

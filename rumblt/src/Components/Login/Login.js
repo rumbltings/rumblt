@@ -59,9 +59,12 @@ export default class Login extends Component{
 
                 </div>
 
-                
                 <div id="getstarted">
                     Get Started
+                </div>
+
+                <div id="logininfo">
+                
                 </div>
 
                 <div id="loginbutton">

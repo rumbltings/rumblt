@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
+<<<<<<< HEAD
 import axios from 'axios';
 import MainHeader from './../Headers/Main Header/MainHeader';
 import reply from './icons/reply.svg';
 import reblog from './icons/reblog.svg';
 import love from './icons/love.svg';
 import './Explore.css';
+=======
+import MainHeader from '../Headers/Main Header/MainHeader'
+import "../Explore/Explore.css"
+>>>>>>> master
 
 
 export default class Explore extends Component{
     constructor(){
+<<<<<<< HEAD
         super();
+=======
+        super()
+        this.state={
+            isExploreCurrent: false
+        }
+>>>>>>> master
 
       this.state = {
         tiles: [{
@@ -22,8 +34,19 @@ export default class Explore extends Component{
       }
     }
 
+    componentDidMount(){
+        document.body.background = '#36465d';
+        this.setState({isExploreCurrent: true})
+    }
+    
+    componentWillUnmount(){
+        this.setState({isExploreCurrent: false})
+    }
+    
+
     render(){
         return(
+<<<<<<< HEAD
             <div>
               Explore
               <MainHeader />
@@ -58,6 +81,13 @@ export default class Explore extends Component{
                   })}
                 </div>
               </section>
+=======
+            <div id="exploremain">
+                <header>
+                    <MainHeader isExploreCurrent={this.state.isExploreCurrent}/>
+                </header>
+                Explore
+>>>>>>> master
             </div>
         )
     }
