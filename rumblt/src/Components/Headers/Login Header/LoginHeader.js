@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import './LoginHeader.css';
 import logo from './icons/logo.svg';
 import search from './icons/search.svg';
+import Practice from './practice';
 
 
 
@@ -22,14 +23,6 @@ export default class LoginHeader extends Component{
                     Search rumblt
                     </div>
                     </div>
-                    <div className="buttons">
-                <div className="signup">
-                Sign Up
-                </div>
-                <div className="login">
-                Log in
-                </div>
-                </div>
                 </div>
                
             </div>

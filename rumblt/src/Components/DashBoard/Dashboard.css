@@ -1,0 +1,54 @@
+#maindash{
+    background: #36465d;
+    height: 100%;
+    min-height: 100vh;
+    
+    
+}
+
+#headerdiv{
+   position: fixed;
+   z-index: 100;
+}
+
+#dashleft{
+    width: 625px;
+    margin-right: 20px;
+    
+}
+#dashright{
+    background: blue;
+    width: 350px;
+    margin-left: 20px;
+    height: 800px;
+    position: sticky;
+    top: 74px;
+}
+#maincontent{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    padding-top: 75px;
+}
+
+.dashfeedtop{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.profileimage{
+    background: paleturquoise;
+    height: 64px;
+    width: 64px;
+    border-radius: 4px;
+    position: sticky;
+    top: 74px;
+}
+
+.createnew{
+    background: white;
+    width: 540px;
+    height: 99px;
+    border-radius: 4px;
+}
