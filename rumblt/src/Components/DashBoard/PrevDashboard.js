@@ -11,7 +11,7 @@ import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
 import SignOutButton from '../Login/signOut';
 
-const Dashboard = ({ authUser}) => (
+const prevDashboard = ({ authUser}) => (
     <div>
       <MainHeader/>
     <h1>User: {authUser.uid}</h1>

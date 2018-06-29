@@ -74,6 +74,8 @@ export default class Login extends Component{
                     Log In
                 </div>
 
+                    <LoginBoxes/>
+
                 </div>
 
                 </div>
