@@ -3,6 +3,8 @@ import axios from 'axios'
 import LoginHeader from '../Headers/Login Header/LoginHeader';
 import rumblt from '../Headers/Login Header/icons/rumblt.svg';
 import './Login.css'
+
+// eslint-disable-next-line
 import {Link} from 'react-router-dom';
 import LoginBoxes from './LoginBoxes';
 
@@ -62,17 +64,21 @@ export default class Login extends Component{
 
                 </div>
 
-                <div id="getstarted">
+                <Link to='/' id="getstarted">
+                <div >
                     Get Started
                 </div>
+                </Link>
 
                 <div id="logininfo">
                 
                 </div>
 
-                <div id="loginbutton">
+                <Link to='/' id="loginbutton">
+                <div >
                     Log In
                 </div>
+                </Link>
 
                 </div>
 

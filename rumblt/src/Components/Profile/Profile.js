@@ -1,16 +1,21 @@
+// eslint-disable-next-line
+
 import React, {Component} from 'react';
 
 
 export default class Profile extends Component{
     constructor(){
         super()
+        this.state={
+            page: 'profile'
+        }
 
     }
 
     render(){
         return(
             <div>
-                Profile
+                {this.state.page}
             </div>
         )
     }

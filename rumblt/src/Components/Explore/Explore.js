@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import MainHeader from './../Headers/Main Header/MainHeader';
 import reply from './icons/reply.svg';
 import reblog from './icons/reblog.svg';

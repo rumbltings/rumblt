@@ -53,6 +53,7 @@
 #getstarted:hover{
     background: whitesmoke;
     color: #529ecc;
+    cursor: pointer;
 }
 
 .hide{
@@ -75,6 +76,7 @@
 #loginbutton:hover{
     background: rgb(83, 83, 83);
     color: white;
+    cursor: pointer;
 }
 
 #registerinfo{

@@ -78,6 +78,6 @@ path{
     fill: pink;
 }
 
-Modal{
-    width: 280px;
+.modal-backdrop{
+    background: pink;
 }
