@@ -9,9 +9,10 @@ import '../Headers/Login Header/LoginHeader.css'
 import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
-import {compose} from 'recompose';
-import withAuthentication from '../../withAuthentication';
-import withAuthorization from '../../withAuthorization';
+import {Link} from 'react-router-dom';
+// import {compose} from 'recompose';
+// import withAuthentication from '../../withAuthentication';
+// import withAuthorization from '../../withAuthorization';
 import SignOutButton from '../Login/signOut';
 
 export class Dashboard extends Component{
@@ -84,7 +85,8 @@ export class Dashboard extends Component{
         )}else {
             return (
                 <div>
-                    log the fuck in bitch
+                    <h1>Whoops! Something went wrong</h1>
+                    <h3>Please <Link to='/'>try again</Link></h3>
                 </div>
             )
         }
