@@ -69,6 +69,7 @@
     align-items: center;
     font-weight: 600; 
     color: rgb(83, 83, 83);
+    border-style: none;
     border-radius: 2px;
 }
 

@@ -8,8 +8,14 @@ import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
 import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
+import  {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
+// import {compose} from 'recompose';
+// import withAuthentication from '../../withAuthentication';
+// import withAuthorization from '../../withAuthorization';
+import SignOutButton from '../Login/signOut';
 
-export default class Dashboard extends Component{
+export class Dashboard extends Component{
     constructor(){
         super()
         this.state={
@@ -20,6 +26,7 @@ export default class Dashboard extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
     }
@@ -29,10 +36,13 @@ export default class Dashboard extends Component{
     }
 
     render(){
+        if(this.props.authUser !== null) {
         return(
+            
             <div id='maindash'>
                 <div id='headerdiv'>
                     <MainHeader isDashCurrent={this.state.isDashCurrent}/>
+                    <SignOutButton />
                 </div>
                 <div id="maincontent">
                 <div id="dashleft">
@@ -44,6 +54,7 @@ export default class Dashboard extends Component{
                     </div>
                     <div className="createnew">
                     create new bar goes here
+                    <h3>{this.props.authUser.email}</h3>
                     </div>
                 </div>
 
@@ -71,6 +82,21 @@ export default class Dashboard extends Component{
 
                 </div>
             </div>
-        )
+        )}else {
+            return (
+                <div>
+                    <h1>Whoops! Something went wrong</h1>
+                    <h3>Please <Link to='/'>try again</Link></h3>
+                </div>
+            )
+        }
     }
 }
+
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default connect(mapStateToProps)(Dashboard);
