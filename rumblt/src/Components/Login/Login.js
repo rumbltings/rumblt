@@ -13,7 +13,9 @@ export default class Login extends Component{
     constructor(){
         super()
         this.state={
-            image: ''
+            image: '',
+            displaySignUp: false,
+            displayLogIn: false
         }
 
     }
@@ -64,20 +66,37 @@ export default class Login extends Component{
 
                 </div>
 
-                <Link to='/' id="getstarted">
-                <div >
-                    Get Started
+                <div id={this.state.displaySignUp ? 'signupinfo' : 'hideLogin'}>
+                <input type="text" placeholder='Email'/>
+                <input type="text" placeholder='Password'/>
+                <input type="text" placeholder='Username'/>
                 </div>
+
+               
+                <div id={this.state.displayLogIn || this.state.displaySignUp ? "hideButton" : "getstarted"} onClick={()=>this.setState({displaySignUp: true})}>
+                   {this.state.displaySignUp ? 
+                    'Sign Up' 
+                    : 'Get Started'}
+                </div>
+
+                <Link to='/dashboard' id={this.state.displaySignUp ? "getstarted" : "hideButton"}>
+                Sign Up
                 </Link>
-
-                <div id="logininfo">
                 
+
+                  <div id={this.state.displayLogIn ? 'logininfo' : 'hideLogin'}>
+                <input type="text" placeholder='Email'/>
+                <input type="text" placeholder='Password'/>
                 </div>
 
-                <Link to='/' id="loginbutton">
-                <div >
+
+                
+                <div id={this.state.displaySignUp || this.state.displayLogIn ? "hideButton" : "loginbutton"} onClick={()=>this.setState({displayLogIn: true})}>
                     Log In
                 </div>
+               
+                <Link to='/dashboard' id={this.state.displayLogIn ? "loginbutton" : "hideButton"}>
+                Log In
                 </Link>
 
                 </div>

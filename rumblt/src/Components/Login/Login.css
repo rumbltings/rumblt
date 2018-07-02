@@ -4,14 +4,13 @@
 }
 
 #mainsignin{
-    height: 300px;
     width: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-bottom: 170px;
+    margin-bottom: 100px;
     
 }
 
@@ -50,15 +49,26 @@
     border-radius: 2px;
 }
 
+#signup{
+    height: 50px;
+    width: 95%;
+    background: #529ecc;
+    color: whitesmoke;
+    font-weight: 600; 
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+}
+
 #getstarted:hover{
     background: whitesmoke;
     color: #529ecc;
     cursor: pointer;
 }
 
-.hide{
-    display: none;
-}
+
 
 #loginbutton{
     margin-top: 12px;
@@ -71,6 +81,7 @@
     font-weight: 600; 
     color: rgb(83, 83, 83);
     border-radius: 2px;
+    
 }
 
 #loginbutton:hover{
@@ -79,7 +90,60 @@
     cursor: pointer;
 }
 
-#registerinfo{
+
+#signupinfo{
+    display: flex;
+    flex-direction: column;
     background: white;
-    height: 300px;
+    border-radius: 2px;
+    overflow: hidden;
+    height: 140px;
+    transition: 1s ease all;
+}
+
+#signupinfo>input{
+    padding-left: 15px;
+    background: transparent;
+    border: none;
+    height: 44px;
+    width: 300px;
+    font: 16px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+}
+
+#signupinfo>input:nth-child(2){
+    border-top: solid 1px #919aa779;
+    border-bottom: solid 1px #919aa779;
+}
+
+#logininfo{
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 2px;
+    overflow: hidden;
+    height: 90px;
+    transition: 1s ease all;
+}
+
+#logininfo>input{
+    padding-left: 15px;
+    background: transparent;
+    border: none;
+    height: 44px;
+    width: 300px;
+    font: 16px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+}
+
+#logininfo>input:nth-child(2){
+    border-top: solid 1px #919aa779;
+}
+
+#hideLogin{
+    height: 0;
+    width: 0;
+    overflow: hidden;
+}
+
+#hideButton{
+    display: none;
 }
