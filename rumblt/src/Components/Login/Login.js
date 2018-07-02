@@ -11,9 +11,10 @@ export default class Login extends Component{
     constructor(){
         super()
         this.state={
-            image: ''
+            image: '',
+            loginForm: false
         }
-
+        this.toggleLoginForm = this.toggleLoginForm.bind(this);
     }
 
     componentDidMount(){
@@ -31,6 +32,10 @@ export default class Login extends Component{
             document.body.background = this.state.image;
             document.body.style.backgroundSize = "cover";
         })
+    }
+
+    toggleLoginForm () {
+        this.setState({loginForm: !this.state.loginForm});
     }
 
     render(){
@@ -62,17 +67,20 @@ export default class Login extends Component{
 
                 </div>
 
+            {this.state.loginForm ?
+            <LoginBoxes />
+            :
+            <div>
+            <button id="loginbutton" onClick={this.toggleLoginForm}>
+                <div>
+                    Log In 
+                </div>
+            </button>
                 <div id="getstarted">
                     Get Started
                 </div>
-
-                <div id="logininfo">
-                
                 </div>
-
-                <div id="loginbutton">
-                    Log In
-                </div>
+            }
 
                 </div>
 
