@@ -5,6 +5,7 @@ import rumblt from '../Headers/Login Header/icons/rumblt.svg';
 import './Login.css'
 import {Link} from 'react-router-dom';
 import LoginBoxes from './LoginBoxes';
+import SignupForm from '../Signup/Signup';
 
 
 export default class Login extends Component{
@@ -72,12 +73,17 @@ export default class Login extends Component{
             :
             <div>
             <button id="loginbutton" onClick={this.toggleLoginForm}>
+                
                 <div>
                     Log In 
                 </div>
+                
             </button>
+
                 <div id="getstarted">
-                    Get Started
+                <Link to='/signup'>
+                    <button> Get Started </button>
+                    </Link>
                 </div>
                 </div>
             }
