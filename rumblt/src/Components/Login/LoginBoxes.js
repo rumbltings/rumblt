@@ -5,6 +5,7 @@ import { auth } from  '../../firebase';
 const SignInPage = ({ history }) =>
   <div>
     <br/>
+    
     <SignInForm history={history} />
 
   </div>

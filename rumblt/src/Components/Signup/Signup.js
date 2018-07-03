@@ -3,7 +3,7 @@ import {
   Link
 } from 'react-router-dom';
 import { auth, db } from '../../firebase';
-
+import './Signup.css'
 export const DASHBOARD = '/dashboard';
 
 const updateByPropertyName = (propertyName, value) => () => ({
