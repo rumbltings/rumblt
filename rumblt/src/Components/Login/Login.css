@@ -11,7 +11,9 @@
     justify-content: center;
     text-align: center;
     margin-bottom: 100px;
-    
+    padding: 20px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.219);
 }
 
 #fulllogo>img{
@@ -38,7 +40,7 @@
 
 #getstarted{
     height: 50px;
-    width: 95%;
+    width: 350px;
     background: #529ecc;
     color: whitesmoke;
     font-weight: 600; 
@@ -51,7 +53,7 @@
 
 #signup{
     height: 50px;
-    width: 95%;
+    width: 100%;
     background: #529ecc;
     color: whitesmoke;
     font-weight: 600; 
@@ -73,13 +75,14 @@
 #loginbutton{
     margin-top: 12px;
     height: 50px;
-    width: 95%;
+    width: 100%;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: 600; 
     color: rgb(83, 83, 83);
+    border-style: none;
     border-radius: 2px;
     
 }
@@ -94,10 +97,10 @@
 #signupinfo{
     display: flex;
     flex-direction: column;
-    background: white;
+    background: transparent;
+    height: 253px;
     border-radius: 2px;
     overflow: hidden;
-    height: 140px;
     transition: 1s ease all;
 }
 
@@ -118,10 +121,10 @@
 #logininfo{
     display: flex;
     flex-direction: column;
-    background: white;
+    background: transparent;
     border-radius: 2px;
     overflow: hidden;
-    height: 90px;
+    height: 200px;
     transition: 1s ease all;
 }
 

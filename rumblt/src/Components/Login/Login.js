@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import LoginHeader from '../Headers/Login Header/LoginHeader';
 import rumblt from '../Headers/Login Header/icons/rumblt.svg';
-import './Login.css'
+import './Login.css';
 
 // eslint-disable-next-line
 import {Link} from 'react-router-dom';
 import LoginBoxes from './LoginBoxes';
+import SignupForm from '../Signup/Signup';
 
 
 export default class Login extends Component{
@@ -15,9 +16,10 @@ export default class Login extends Component{
         this.state={
             image: '',
             displaySignUp: false,
-            displayLogIn: false
+            displayLogIn: false,
+            loginForm: false
         }
-
+        this.toggleLoginForm = this.toggleLoginForm.bind(this);
     }
 
     componentDidMount(){
@@ -35,6 +37,10 @@ export default class Login extends Component{
             document.body.background = this.state.image;
             document.body.style.backgroundSize = "cover";
         })
+    }
+
+    toggleLoginForm () {
+        this.setState({loginForm: !this.state.loginForm});
     }
 
     render(){
@@ -66,43 +72,39 @@ export default class Login extends Component{
 
                 </div>
 
-                <div id={this.state.displaySignUp ? 'signupinfo' : 'hideLogin'}>
-                <input type="text" placeholder='Email'/>
-                <input type="text" placeholder='Password'/>
-                <input type="text" placeholder='Username'/>
-                </div>
 
-               
-                <div id={this.state.displayLogIn || this.state.displaySignUp ? "hideButton" : "getstarted"} onClick={()=>this.setState({displaySignUp: true})}>
-                   {this.state.displaySignUp ? 
-                    'Sign Up' 
-                    : 'Get Started'}
-                </div>
+           
+            <div>
 
-                <Link to='/dashboard' id={this.state.displaySignUp ? "getstarted" : "hideButton"}>
-                Sign Up
-                </Link>
+                <div id={this.state.displaySignUp ? "signupinfo" : "hideLogin"}>
+                <SignupForm/>
+                </div>
                 
-
-                  <div id={this.state.displayLogIn ? 'logininfo' : 'hideLogin'}>
-                <input type="text" placeholder='Email'/>
-                <input type="text" placeholder='Password'/>
-                </div>
-
-
                 
-                <div id={this.state.displaySignUp || this.state.displayLogIn ? "hideButton" : "loginbutton"} onClick={()=>this.setState({displayLogIn: true})}>
-                    Log In
+                <div id={this.state.loginForm || this.state.displaySignUp ? "hideLogin" : "getstarted"}
+                onClick={()=>{this.setState({displaySignUp: true})}}>
+                    Get Started
                 </div>
-               
-                <Link to='/dashboard' id={this.state.displayLogIn ? "loginbutton" : "hideButton"}>
-                Log In
-                </Link>
+                
+            
+            <div id={this.state.loginForm ? "logininfo" : "hideLogin"}>
+            <LoginBoxes />
+            </div>
+            
+            <div  id={this.state.loginForm || this.state.displaySignUp ? "hideLogin" : "loginbutton"} onClick={this.toggleLoginForm}>
+
+                    Log In 
+
+            </div>
+                </div>
+            
+
 
                 </div>
 
                 </div>
             </div>
+            
         )
     }
 }
