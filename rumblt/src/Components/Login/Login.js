@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import LoginHeader from '../Headers/Login Header/LoginHeader';
 import rumblt from '../Headers/Login Header/icons/rumblt.svg';
-import './Login.css'
+import './Login.css';
+
+// eslint-disable-next-line
 import {Link} from 'react-router-dom';
 import LoginBoxes from './LoginBoxes';
+import SignupForm from '../Signup/Signup';
 
 
 export default class Login extends Component{
@@ -12,6 +15,8 @@ export default class Login extends Component{
         super()
         this.state={
             image: '',
+            displaySignUp: false,
+            displayLogIn: false,
             loginForm: false
         }
         this.toggleLoginForm = this.toggleLoginForm.bind(this);
@@ -22,7 +27,7 @@ export default class Login extends Component{
     }
 
     getRandomImage(){
-        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'tumblr', 'disney', 'food', 'coffee', 'animals'];
+        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'tumblr', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms'];
 
         var query= queries[Math.floor(Math.random()*queries.length)]
 
@@ -67,25 +72,39 @@ export default class Login extends Component{
 
                 </div>
 
-            {this.state.loginForm ?
-            <LoginBoxes />
-            :
+
+           
             <div>
-            <button id="loginbutton" onClick={this.toggleLoginForm}>
-                <div>
-                    Log In 
+
+                <div id={this.state.displaySignUp ? "signupinfo" : "hideLogin"}>
+                <SignupForm/>
                 </div>
-            </button>
-                <div id="getstarted">
+                
+                
+                <div id={this.state.loginForm || this.state.displaySignUp ? "hideLogin" : "getstarted"}
+                onClick={()=>{this.setState({displaySignUp: true})}}>
                     Get Started
                 </div>
+                
+            
+            <div id={this.state.loginForm ? "logininfo" : "hideLogin"}>
+            <LoginBoxes />
+            </div>
+            
+            <div  id={this.state.loginForm || this.state.displaySignUp ? "hideLogin" : "loginbutton"} onClick={this.toggleLoginForm}>
+
+                    Log In 
+
+            </div>
                 </div>
-            }
+            
+
 
                 </div>
 
                 </div>
             </div>
+            
         )
     }
 }

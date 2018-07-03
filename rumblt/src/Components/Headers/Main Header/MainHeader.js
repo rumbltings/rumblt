@@ -17,17 +17,14 @@ import Modal from 'react-modal';
 
 const customStyles = {
     content : {
-    //   top                   : '50%',
-    //   left                  : '50%',
-    //   right                 : 'auto',
-    //   bottom                : 'auto',
-    //   marginRight           : '-50%',
-    //   transform             : 'translate(-50%, -50%)'
     width: '280px',
     height: '500px',
-    left: '75%'
+    left: '75%',
+    
     }
   };
+
+
 
 
 
@@ -80,9 +77,9 @@ export default class MainHeader extends Component{
                     <img id='iconh' src={this.state.chatActive ? aChat : message} alt="" onClick={()=>
                     {this.setState({chatActive: !this.state.chatActive, profileActive: false})}}/>
 
-                        <Modal
+                        {/* <Modal
           isOpen={this.state.chatActive}
-          onRequestClose={this.chatActive == false}
+          onRequestClose={this.chatActive === false}
           contentLabel="Chat Modal"
           style={customStyles}
         >
@@ -90,7 +87,7 @@ export default class MainHeader extends Component{
           <div id='modalDiv'>
               I am a modal
           </div>
-        </Modal>
+        </Modal> */}
 
 
                     <img id='iconh' src={this.state.profileActive ? aProfile : profile} alt=""

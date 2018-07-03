@@ -13,6 +13,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    padding-right: 25px;
     
 }
 
@@ -28,7 +29,7 @@
     
 }
 
-#icon:hover{
+#iconh:hover{
     cursor: pointer;
 }
 
@@ -78,6 +79,6 @@ path{
     fill: pink;
 }
 
-Modal{
-    width: 280px;
+.modal-backdrop{
+    background: pink;
 }
