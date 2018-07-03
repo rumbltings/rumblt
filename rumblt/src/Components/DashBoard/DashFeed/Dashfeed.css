@@ -12,11 +12,33 @@
     border-radius: 4px;
     position: sticky;
     top: 74px;
+    overflow: hidden;
+}
+
+
+.posterimage img{
+    display: block;
+    height: 64px;
 }
 
 .postdisplay{
     width: 540px;
-    height: 500px;
     background: white;
     border-radius: 4px;
+}
+
+.postdisplay img{
+    width: 100%;
+    height: auto;
+}
+
+.pdheader{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.pdfooter{
+    min-height: 50px;
 }
