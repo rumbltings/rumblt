@@ -11,6 +11,7 @@ import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 
+import axios from 'axios';
 // import {compose} from 'recompose';
 // import withAuthentication from '../../withAuthentication';
 // import withAuthorization from '../../withAuthorization';
@@ -68,11 +69,18 @@ export class Dashboard extends Component{
 
     }
 
+    getLoggedUser () {
+        axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
+            console.log(user);
+        })
+    }
+
     componentDidMount(){
+
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
-
+        this.getLoggedUser();
     }
     
     componentWillUnmount(){

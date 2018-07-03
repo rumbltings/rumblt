@@ -74,6 +74,7 @@ export default class MainHeader extends Component{
                     {this.setState({chatActive: !this.state.chatActive, profileActive: false})}}/>
 
 
+
                     <img id='iconh' src={this.state.profileActive ? aProfile : profile} alt=""
                     onClick={()=>{this.setState({profileActive: !this.state.profileActive, chatActive: false})}}
                     />
