@@ -12,21 +12,29 @@ const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value
 });
 
-const INITIAL_STATE = {
-  name: '',
-  username: '',
-  email: '',
-  userid: '',
-  blogtitle:'',
-  passwordOne: '',
-  passwordTwo: ''
-};
+// const INITIAL_STATE = {
+//   name: '',
+//   username: '',
+//   email: '',
+//   userid: '',
+//   blogtitle:'',
+//   passwordOne: '',
+//   passwordTwo: ''
+// };
 
 class SignUpForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { ...INITIAL_STATE };
+    this.state = {
+      name: '',
+      username: '',
+      email: '',
+      userid: '',
+      blogtitle:'',
+      passwordOne: '',
+      passwordTwo: ''
+    };
     this.setUser = this.setUser.bind(this);
   }
 
@@ -52,11 +60,14 @@ class SignUpForm extends Component {
       .then(authUser => {
         db.doCreateUser(authUser.user.uid, name, email)
           .then(() => {
-            this.setState(() => ({ ...INITIAL_STATE }));
+            //this.setState(() => ({ ...INITIAL_STATE }));
             this.setState({userid: authUser.user.uid});
             console.log(this.state.userid);
-            history.push(DASHBOARD);
-            
+          }).then( () => {
+            let {userid, name, username, blogtitle} = this.state;
+            axios.post('/api/users/', {userid, name, username, blogtitle}).then( () => {
+              console.log('user made good si')
+            }).then(() => {window.location.href = '/#/dashboard'})
           })
       })
       .catch(error => {
