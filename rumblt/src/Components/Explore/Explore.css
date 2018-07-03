@@ -2,3 +2,13 @@
     background: #36465d;
     height: 100vh;
 }
+
+.blogger_pic {
+  width: 30px;
+  height: 30px;
+}
+
+.blog_post_image {
+  width: 300px;
+}
+
