@@ -11,11 +11,13 @@ const updateByPropertyName = (propertyName, value) => () => ({
 });
 
 const INITIAL_STATE = {
-  username: '',
+  name: '',
   email: '',
   passwordOne: '',
   passwordTwo: '',
   error: null,
+  blogtitle: '',
+
 };
 
 class SignUpForm extends Component {
@@ -27,7 +29,7 @@ class SignUpForm extends Component {
 
   onSubmit = (event) => {
     const {
-      username,
+      name,
       email,
       passwordOne,
     } = this.state;
@@ -38,7 +40,7 @@ class SignUpForm extends Component {
 
     auth.doCreateUserWithEmailAndPassword(email, passwordOne)
       .then(authUser => {
-        db.doCreateUser(authUser.user.uid, username, email)
+        db.doCreateUser(authUser.user.uid, name, email)
           .then(() => {
             this.setState(() => ({ ...INITIAL_STATE }));
             history.push(DASHBOARD);
@@ -46,16 +48,14 @@ class SignUpForm extends Component {
           .catch(error => {
             this.setState(updateByPropertyName('error', error));
           });
-      })
-      .catch(error => {
-        this.setState(updateByPropertyName('error', error));
       });
+      
     event.preventDefault();
   }
 
   render() {
     const {
-      username,
+      name,
       email,
       passwordOne,
       passwordTwo,
@@ -65,14 +65,14 @@ class SignUpForm extends Component {
     const isInvalid =
       passwordOne !== passwordTwo ||
       passwordOne === '' ||
-      username === '' ||
+      name === '' ||
       email === '';
 
     return (
       <form onSubmit={this.onSubmit}>
         <input
-          value={username}
-          onChange={event => this.setState(updateByPropertyName('username', event.target.value))}
+          value={name}
+          onChange={event => this.setState(updateByPropertyName('name', event.target.value))}
           type="text"
           placeholder="Full Name"
         />
