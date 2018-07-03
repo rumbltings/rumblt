@@ -75,10 +75,27 @@
     align-items: center;
 }
 
-path{
-    fill: pink;
-}
 
 .modal-backdrop{
     background: pink;
+}
+
+#headerLogo{
+    fill: whitesmoke;
+    height: 34px;
+}
+
+#headerLogo:hover{
+    animation: rainbow .5s infinite;
+}
+
+@keyframes rainbow{
+    0%{fill: pink}
+    14%{fill: peachpuff}
+    28%{fill: palegoldenrod}
+    42%{fill: springgreen}
+    56%{fill: powderblue}
+    70%{fill: plum}
+    84%{fill: violet}
+    100%{fill: palevioletred}
 }
