@@ -77,7 +77,7 @@ export default class MainHeader extends Component{
                     <img id='iconh' src={this.state.chatActive ? aChat : message} alt="" onClick={()=>
                     {this.setState({chatActive: !this.state.chatActive, profileActive: false})}}/>
 
-                        <Modal
+                        {/* <Modal
           isOpen={this.state.chatActive}
           onRequestClose={this.chatActive === false}
           contentLabel="Chat Modal"
@@ -87,7 +87,7 @@ export default class MainHeader extends Component{
           <div id='modalDiv'>
               I am a modal
           </div>
-        </Modal>
+        </Modal> */}
 
 
                     <img id='iconh' src={this.state.profileActive ? aProfile : profile} alt=""

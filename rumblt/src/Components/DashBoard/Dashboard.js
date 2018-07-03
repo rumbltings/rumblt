@@ -10,6 +10,7 @@ import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 // import {compose} from 'recompose';
 // import withAuthentication from '../../withAuthentication';
 // import withAuthorization from '../../withAuthorization';
@@ -21,15 +22,21 @@ export class Dashboard extends Component{
         super()
         this.state={
             posts: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-            isDashCurrent: false
+            isDashCurrent: false,
         }
 
     }
 
+    getLoggedUser () {
+        axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
+            console.log(user);
+        })
+    }
+
     componentDidMount(){
-        console.log(this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
+        this.getLoggedUser();
     }
     
     componentWillUnmount(){
