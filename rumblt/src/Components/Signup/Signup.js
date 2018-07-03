@@ -5,6 +5,7 @@ import {
 import { auth, db } from '../../firebase';
 import axios from 'axios';
 
+import './Signup.css'
 export const DASHBOARD = '/dashboard';
 
 const updateByPropertyName = (propertyName, value) => () => ({
