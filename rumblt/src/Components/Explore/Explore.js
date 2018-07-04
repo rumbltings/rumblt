@@ -8,9 +8,10 @@ import profile_img from './temp_images/1.jpg';
 import post_img from './temp_images/1q.jpg';
 import './Explore.css';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 
-export default class Explore extends Component{
+ class Explore extends Component{
     constructor(){
         super();
 
@@ -42,6 +43,7 @@ export default class Explore extends Component{
         this.setState({isExploreCurrent: true})
         this.handleChangeToTrending();
         this.getFollowedBlogIds();
+        console.log(this.props.authUser)
     }
 
     //When the component unmounts, set the 'isExploreCurrent' (in state) to 'false'.
@@ -140,6 +142,7 @@ export default class Explore extends Component{
         return(
             <div>
               <MainHeader />
+              <p>{this.props.authUser.uid}</p>
               <section className='subheader'>
                 <p className='trending' onClick={this.handleChangeToTrending}>Trending</p>
                 <p className='staff_picks' onClick={this.handleChangeToStaffPicks}>Staff Picks</p>
@@ -178,3 +181,11 @@ export default class Explore extends Component{
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default connect(mapStateToProps)(Explore);
