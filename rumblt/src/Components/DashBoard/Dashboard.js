@@ -29,7 +29,13 @@ export class Dashboard extends Component{
 
     getLoggedUser () {
         axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
-            console.log(user);
+            console.log('current user: ', user);
+        })
+    }
+
+    getAllUsers() {
+        axios.get('/api/users/').then( (users) => {
+            console.log('getallusers returns: ', users);
         })
     }
 
@@ -37,6 +43,7 @@ export class Dashboard extends Component{
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
         this.getLoggedUser();
+        this.getAllUsers();
     }
     
     componentWillUnmount(){
