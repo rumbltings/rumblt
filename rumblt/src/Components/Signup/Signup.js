@@ -35,14 +35,8 @@ class SignUpForm extends Component {
       passwordOne: '',
       passwordTwo: ''
     };
-    this.setUser = this.setUser.bind(this);
   }
 
-  setUser () {
-    let  {userid, name, username, blogtitle} = this.state;
-       console.log(this.state);
-        axios.post('/api/users/', {userid, name, username, blogtitle})
-}
 
 
   onSubmit = (event) => {
@@ -65,7 +59,7 @@ class SignUpForm extends Component {
             console.log(this.state.userid);
           }).then( () => {
             let {userid, name, username, blogtitle} = this.state;
-            axios.post('/api/users/', {userid, name, username, blogtitle}).then( () => {
+            axios.post('/api/newuser/', {userid, name, username, blogtitle}).then( () => {
               console.log('user made good si')
             }).then(() => {window.location.href = '/#/dashboard'})
           })
