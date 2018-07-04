@@ -14,23 +14,29 @@ export default class DashFeed extends Component{
         return(
             <div id='maindashfeed'>
                 <div className="posterimage">
-                <img src={this.props.posterImage} alt=""/>
+                <img src={this.props.img} alt=""/>
                 </div>
 
                 <div className="postdisplay">
                 <div className="pdheader">
-                {this.props.posterName}
+                {/* {this.props.posterName} */}
                 </div>
+                {this.props.type === 'img' ?
                 <div className="pdcontent">
-                <img src={this.props.postContent} alt=""/>
+                <img src={this.props.content} alt=""/>
                 </div>
+                :
+                <div>
+                <p>{this.props.content}</p>
+                </div>
+                }
                 <div className="pdfooter">
                 <div className="desc">
-                {this.props.postCaption}
+                {/* {this.props.postCaption} */}
                 </div>
                 <div className="footerfooter">
                 <div className="notes">
-                {`${this.props.notes} notes`}
+                {/* {`${this.props.notes} notes`} */}
                 </div>
                 </div>
                 </div>
