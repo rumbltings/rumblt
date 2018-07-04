@@ -63,8 +63,8 @@ app.get('/api/posts/:userid', (req, res)=> {
 })
 
 app.post('/api/newuser/', (req, res)=> {
-    let{userid, name, username, blogtitle} = req.body;
-    req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
+    let{userid, name, username, blogtitle, userimg} = req.body;
+    req.app.get('db').addUser([userid, name, username, blogtitle, userimg]).then(ok=> {
         res.sendStatus(200);
     }).catch(err=> {
         console.log(err);
