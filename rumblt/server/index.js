@@ -50,7 +50,6 @@ app.get('/api/users', (req, res)=>{
 
 
 app.post('/api/newuser/', (req, res)=> {
->>>>>>> fc488bfb686751a4f487e5aee7ba373dc3676e9a
     let{userid, name, username, blogtitle} = req.body;
     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
         res.sendStatus(200);
