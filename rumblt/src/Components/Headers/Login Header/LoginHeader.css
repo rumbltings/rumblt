@@ -15,7 +15,7 @@
 #icon{
     height: 30px;
     width: auto;
-    fill: pink;
+    /* fill: pink; */
 }
 
 #edit{
@@ -53,5 +53,5 @@
 }
 
 .logo{
-    fill: pink;
+    /* fill: pink; */
 }

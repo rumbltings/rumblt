@@ -7,6 +7,7 @@ import message from './icons/message.svg';
 import profile from './icons/profile.svg';
 import edit from './icons/edit.svg';
 import logo from './icons/logo.svg';
+import Logo from './icons/Logo';
 import search from './icons/search.svg';
 import aHome from './icons/homeActive.svg'
 import aExplore from './icons/aExplore.svg'
@@ -15,14 +16,6 @@ import aProfile from './icons/aProfile.svg'
 import Modal from 'react-modal';
 
 
-const customStyles = {
-    content : {
-    width: '280px',
-    height: '500px',
-    left: '75%',
-    
-    }
-  };
 
 
 
@@ -51,8 +44,11 @@ export default class MainHeader extends Component{
             <div id='navBar'>
                 <div id='logoContainer'>
 
-                    <Link to='/explore'>
-                        <img id='logoh' src={logo} alt="Link to dashboard"/>
+                    <Link to='/dashboard'>
+                        {/* <img  src={logo} alt="Link to dashboard"/> */}
+                        <div id='logoh'>
+    <svg id='headerLogo' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71.5 83.61"><title>logo</title><path d="M883.29,476.83h0l0,0a14,14,0,0,0-4.13-5.29c-10.11-9.89-23-3.28-30.21,1.94a12.68,12.68,0,0,0-3.65,2.88l-1,.93-.83.65c-.91-1.75-.91-9.4-.91-9.4L813,468v18h11v47H813v17h47V533l-11.5-.5v-41s0-6.61,8.26-6.31a14,14,0,1,0,26.53-8.36Z" transform="translate(-813 -466.39)"/></svg>
+    </div>
                     </Link>
 
                     <div id="search">
@@ -77,17 +73,6 @@ export default class MainHeader extends Component{
                     <img id='iconh' src={this.state.chatActive ? aChat : message} alt="" onClick={()=>
                     {this.setState({chatActive: !this.state.chatActive, profileActive: false})}}/>
 
-                        {/* <Modal
-          isOpen={this.state.chatActive}
-          onRequestClose={this.chatActive === false}
-          contentLabel="Chat Modal"
-          style={customStyles}
-        >
-
-          <div id='modalDiv'>
-              I am a modal
-          </div>
-        </Modal> */}
 
 
                     <img id='iconh' src={this.state.profileActive ? aProfile : profile} alt=""
