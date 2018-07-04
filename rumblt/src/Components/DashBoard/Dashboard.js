@@ -28,9 +28,13 @@ export class Dashboard extends Component{
     }
 
     getLoggedUser () {
-        axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
-            console.log('current user: ', user);
-        })
+        if (!this.props.authUser) {
+            window.location.href = '/#/';
+        } else {
+            axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
+                console.log('current user: ', user);
+            })
+        }
     }
 
     getAllUsers() {
