@@ -7,6 +7,7 @@ import love from './icons/love.svg';
 import profile_img from './temp_images/1.jpg';
 import post_img from './temp_images/1q.jpg';
 import './Explore.css';
+import axios from 'axios';
 
 
 export default class Explore extends Component{

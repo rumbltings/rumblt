@@ -67,6 +67,7 @@ class SignUpForm extends Component {
       .catch(error => {
         console.log(error);
       });
+      
     event.preventDefault();
 
   }

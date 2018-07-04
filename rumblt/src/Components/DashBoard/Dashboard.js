@@ -29,44 +29,18 @@ export class Dashboard extends Component{
     constructor(){
         super()
         this.state={
-            posts: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-            isDashCurrent: false,
-            dummyData: [{
-                id: 1,
-                posterImage: 'https://78.media.tumblr.com/e61a924e988536de900ac6c3a9ef97fa/tumblr_os5r54nmOz1tcslufo1_400.png',
-                posterName: 'Poster 1',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'https://pics.me.me/i-wish-i-was-a-shibe-3398650.png',
-                notes: 123
-            },
-            {
-                id: 2,
-                posterImage: 'https://78.media.tumblr.com/6c039a0bb30eddc57524f8d490036da3/tumblr_ofzb7eKvce1ukzs7qo1_500.png',
-                posterName: 'Poster 2',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'http://www.mypokecard.com/my/galery/p7o782CtWOsk.jpg',
-                notes: 0
-            },
-            {
-                id: 3,
-                posterImage: 'https://78.media.tumblr.com/3b047b40120348466074a3491ce4fe6c/tumblr_oqtvlgp87H1t4rhclo3_400.png',
-                posterName: 'Poster 3',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'https://pics.me.me/i-wish-i-was-a-shibe-3398650.png',
-                notes: 3798
-            },
-            {
-                id: 4,
-                posterImage: 'https://78.media.tumblr.com/670412ed8df88f5978159e86e2333eff/tumblr_p2vwm5d72t1uskm6lo1_500.jpg',
-                posterName: 'Poster 4',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'http://31.media.tumblr.com/3bd9841af890cda9fcb248719385443e/tumblr_msy3raNtLP1shivooo1_400.gif',
-                notes: 10
-            }   
-        ]
+            posts: []
 
         }
 
+    }
+
+    getAllPosts(){
+        axios.get('/api/posts/').then((posts)=> {
+            // console.log(posts + "I'm your posts bitch")
+            this.setState({posts:posts.data})
+            console.log(this.state.posts)
+        })
     }
 
     getLoggedUser () {
@@ -92,6 +66,7 @@ export class Dashboard extends Component{
         this.setState({isDashCurrent: true})
         this.getLoggedUser();
         this.getAllUsers();
+        this.getAllPosts();
     }
     
     componentWillUnmount(){
@@ -171,7 +146,7 @@ export class Dashboard extends Component{
                 </div>
 
                     <div className="feed">
-                    {this.state.dummyData.map(post=>{
+                    {this.state.posts.map(post=>{
                         return (
                             <div key={post}>
                                 <DashFeed {...post}/>
