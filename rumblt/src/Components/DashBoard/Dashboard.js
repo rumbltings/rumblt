@@ -75,8 +75,18 @@ export class Dashboard extends Component{
    
 
     getLoggedUser () {
-        axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
-            console.log(user);
+        if (!this.props.authUser) {
+            window.location.href = '/#/';
+        } else {
+            axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
+                console.log('current user: ', user);
+            })
+        }
+    }
+
+    getAllUsers() {
+        axios.get('/api/users/').then( (users) => {
+            console.log('getallusers returns: ', users);
         })
     }
 
@@ -85,7 +95,9 @@ export class Dashboard extends Component{
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
-        // this.getLoggedUser();
+
+        this.getLoggedUser();
+        this.getAllUsers();
     }
     
     componentWillUnmount(){

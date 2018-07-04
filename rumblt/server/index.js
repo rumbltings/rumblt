@@ -27,7 +27,19 @@ app.get('/api/users/:userid', (req, res) => {
     console.log(err);
     res.status(500).send(err)
 });
+});
+
+app.get('/api/users/', (req, res) => {
+    const dbInstance = req.app.get('db');
+    dbInstance.getallusers().then(users => {
+        console.log(users);
+        res.status(200).send(users);
+    }).catch(err => {
+        console.log(err);
+        res.status(500).send(err)
+    });
 })
+
 
 app.get('/api/users', (req, res)=>{
     const dbInstance = req.app.get('db');
@@ -37,7 +49,8 @@ app.get('/api/users', (req, res)=>{
 })
 
 
-app.post('/api/users/', (req, res)=> {
+app.post('/api/newuser/', (req, res)=> {
+>>>>>>> fc488bfb686751a4f487e5aee7ba373dc3676e9a
     let{userid, name, username, blogtitle} = req.body;
     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
         res.sendStatus(200);

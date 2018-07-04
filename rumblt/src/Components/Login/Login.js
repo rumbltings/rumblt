@@ -27,7 +27,7 @@ export default class Login extends Component{
     }
 
     getRandomImage(){
-        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'tumblr', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms'];
+        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms', 'psychedelic', 'god'];
 
         var query= queries[Math.floor(Math.random()*queries.length)]
 
