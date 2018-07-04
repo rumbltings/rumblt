@@ -29,6 +29,14 @@ app.get('/api/users/:userid', (req, res) => {
 });
 })
 
+app.get('/api/users', (req, res)=>{
+    const dbInstance = req.app.get('db');
+    dbInstance.getAllUsers().then(users=>{
+        res.status(200).send(users)
+    }).catch(err=>res.status(500).send(err))
+})
+
+
 app.post('/api/users/', (req, res)=> {
     let{userid, name, username, blogtitle} = req.body;
     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {

@@ -1,8 +1,4 @@
-//Header
-//Footer
-//Feed
-//Chat Display
-//Random Post
+
 import React, {Component} from 'react';
 import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
@@ -10,7 +6,7 @@ import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-
+import ChatUsers from './ChatUsers';
 import axios from 'axios';
 // import {compose} from 'recompose';
 // import withAuthentication from '../../withAuthentication';
@@ -31,6 +27,13 @@ export class Dashboard extends Component{
         this.state={
             posts: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
             isDashCurrent: false,
+            dummyUser: {
+                id: 1,
+                name: 'Dummy User',
+                userName: 'DummyUser123',
+                title: 'This is my rumblt',
+                profileImage: 'https://78.media.tumblr.com/8252810bc8c531e96ead76339cf0a6ed/tumblr_nr3p4vlQ8S1u0setpo7_r1_500.png'
+            },
             dummyData: [{
                 id: 1,
                 posterImage: 'https://78.media.tumblr.com/e61a924e988536de900ac6c3a9ef97fa/tumblr_os5r54nmOz1tcslufo1_400.png',
@@ -69,6 +72,8 @@ export class Dashboard extends Component{
 
     }
 
+   
+
     getLoggedUser () {
         axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
             console.log(user);
@@ -80,7 +85,7 @@ export class Dashboard extends Component{
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
-        this.getLoggedUser();
+        // this.getLoggedUser();
     }
     
     componentWillUnmount(){
@@ -88,14 +93,14 @@ export class Dashboard extends Component{
     }
 
     render(){
-        if(this.props.authUser !== null) {
+        if(this.props.authUser !== null || this.props.authUser === null) {
         return(
             
             <div id='maindash'>
                 <div id='headerdiv'>
                     <MainHeader isDashCurrent={this.state.isDashCurrent}/>
                     <SignOutButton />
-                    {this.props.authUser.email}
+                    {/* {this.props.authUser.email} */}
                     
                 </div>
                 <div id="maincontent">
@@ -104,7 +109,7 @@ export class Dashboard extends Component{
                 <div className="dashfeedtop">
 
                     <div className="profileimage">
-                    image
+                    <img src={this.state.dummyUser.profileImage} alt=""/>
                     </div>
                     <div id="createnew">
                     <div id="text">
@@ -171,9 +176,15 @@ export class Dashboard extends Component{
                 </div>
 
                 <div id="dashright">
-                    <div className="chat">
-                        Chat goes here
+                    <div id="chatheader">
+                    RECOMMENDED CHAT
                     </div>
+                    <div id='dashchat'>
+                    <div id='chatusercontainer'>
+                        <ChatUsers/>
+                    </div>
+                    </div>
+                    Explore all of Rumblt
 
                     <div className="randompost">
                     Random Post Goes HERE
