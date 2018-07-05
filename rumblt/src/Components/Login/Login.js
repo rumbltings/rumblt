@@ -47,7 +47,6 @@ import SignupForm from '../Signup/Signup';
         var query= queries[Math.floor(Math.random()*queries.length)]
 
         axios.get(`https://api.giphy.com/v1/gifs/random?api_key=lQiHuWLfjlMKb4krrEQar6RKMizcigD3&tag=${query}&rating=PG`).then(res=>{
-            console.log(res.data.data.image_url)
             this.setState({image:res.data.data.image_url})
             document.body.background = this.state.image;
             document.body.style.backgroundSize = "cover";
