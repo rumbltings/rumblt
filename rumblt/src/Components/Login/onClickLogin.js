@@ -40,7 +40,6 @@ class SignInForm extends Component {
     auth.doSignInWithEmailAndPassword(email, password)
       .then((u) => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        console.log(u)
        if(u.user.uid){
         window.location.href = "/#/dashboard"
        } else {

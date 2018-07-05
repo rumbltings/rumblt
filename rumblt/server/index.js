@@ -19,7 +19,6 @@ massive(CONNECTION_STR).then( (db) => {
 
 app.get('/api/users/:userid', (req, res) => {
     const userid = req.params.userid;
-    console.log(req.params,'sup')
     const dbInstance = req.app.get('db');
     dbInstance.getUser([userid])
     .then(users => {res.status(200).send(users);
@@ -32,7 +31,6 @@ app.get('/api/users/:userid', (req, res) => {
 app.get('/api/users/', (req, res) => {
     const dbInstance = req.app.get('db');
     dbInstance.getallusers().then(users => {
-        console.log(users);
         res.status(200).send(users);
     }).catch(err => {
         console.log(err);
@@ -58,7 +56,6 @@ app.post('/api/newuser/', (req, res)=> {
 app.get('/api/posts/' , (req, res)=> {
 const dbInstance = req.app.get('db');
 dbInstance.getAllPosts().then(posts=> {
-    console.log(posts)
     res.status(200).send(posts)
 }).catch(err=> {
     res.status(500).send(err)
@@ -68,9 +65,8 @@ dbInstance.getAllPosts().then(posts=> {
 app.get('/api/posts/:userid', (req, res)=> {
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
-    dbInstance.getSingleUserPosts([userid]).then(posts => {
-        
-        res.status(200).send(posts)
+    dbInstance.getSingleUserPosts([userid]).then(user => {
+        res.status(200).send(user)
     }).catch(err=> {
         res.status(500).send(err)
     })
@@ -80,6 +76,16 @@ app.post('/api/newuser/', (req, res)=> {
     let{userid, name, username, blogtitle, userimg} = req.body;
     req.app.get('db').addUser([userid, name, username, blogtitle, userimg]).then(ok=> {
         res.sendStatus(200);
+    }).catch(err=> {
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
+app.post('/api/posts/new', (req, res) => {
+    let {textInput, typetext, tagInput, uid} = req.body;
+    req.app.get('db').addPost([typetext, tagInput, textInput, uid]).then(ok => {
+        res.status(200).send('ok')
     }).catch(err=> {
         console.log(err);
         res.status(500).send(err)
