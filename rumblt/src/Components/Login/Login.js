@@ -3,14 +3,15 @@ import axios from 'axios'
 import LoginHeader from '../Headers/Login Header/LoginHeader';
 import rumblt from '../Headers/Login Header/icons/rumblt.svg';
 import './Login.css';
-
+import {connect} from 'react-redux';
 // eslint-disable-next-line
 import {Link} from 'react-router-dom';
 import LoginBoxes from './LoginBoxes';
 import SignupForm from '../Signup/Signup';
 
 
-export default class Login extends Component{
+
+     class Login extends Component{
     constructor(){
         super()
         this.state={
@@ -20,12 +21,26 @@ export default class Login extends Component{
             loginForm: false
         }
         this.toggleLoginForm = this.toggleLoginForm.bind(this);
+        this.isLoggedIn = this.isLoggedIn.bind(this);
     }
 
+    componentWillMount(){
+
+    }
     componentDidMount(){
         this.getRandomImage();
+        this.isLoggedIn();
     }
 
+    isLoggedIn(){
+        if(this.props.authUser !== null){
+            window.location.href = '/#/dashboard'
+        }
+        else {
+            window.location.href = '/#/'
+        }
+    }
+   
     getRandomImage(){
         var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms', 'psychedelic', 'god'];
 
@@ -108,3 +123,11 @@ export default class Login extends Component{
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default connect(mapStateToProps)(Login);
