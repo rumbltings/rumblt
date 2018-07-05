@@ -57,7 +57,6 @@ class SignUpForm extends Component {
           .then(() => {
             //this.setState(() => ({ ...INITIAL_STATE }));
             this.setState({userid: authUser.user.uid});
-            console.log(this.state.userid);
           }).then( () => {
             let {userid, name, username, blogtitle, userimg} = this.state;
             axios.post('/api/newuser/', {userid, name, username, blogtitle, userimg}).then( () => {
@@ -73,11 +72,7 @@ class SignUpForm extends Component {
 
   }
 
-  // handleInputChange (event) {
-  //   this.setState({[event.target.name]: event.target.value});
-  //   console.log(this.state.blogtitle);
-  // }
-
+ 
   render() {
     const {
       name,

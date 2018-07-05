@@ -11,7 +11,6 @@ export default class DashFeed extends Component{
     }
 
     render(){
-        console.log(this.props.userimg + "ITS BRITTANY BITCH")
         return(
            
             <div id='maindashfeed'>

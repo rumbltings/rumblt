@@ -23,24 +23,25 @@ import InsertLink from './Icons/InsertLink';
 import InsertChat from './Icons/InsertChat';
 import InsertAudio from './Icons/InsertAudio';
 import InsertVideo from './Icons/InsertVideo';
+import TextPost from './Post/TextPost';
 
 
 export class Dashboard extends Component{
-    constructor(){
-        super()
-        this.state={
-            currentuser: [],
-            posts: []
-
+        constructor(){
+            super();
+            this.state={
+                currentuser: [],
+                posts: [],
+                toggleTextPost: false,
+                textInput: ''
         }
         this.getLoggedUser = this.getLoggedUser.bind(this);
+        this.toggleTextInput = this.toggleTextInput.bind(this);
     }
 
     getAllPosts(){
         axios.get('/api/posts/').then((posts)=> {
-            // console.log(posts + "I'm your posts bitch")
             this.setState({posts:posts.data})
-            console.log(this.state.posts)
         })
     }
 
@@ -51,14 +52,12 @@ export class Dashboard extends Component{
             axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
                 console.log('current user: ', user);
                 this.setState({currentuser:user.data[0]})
-                console.log(this.state.currentuser.userid + "i'm state bitch")
             })
         }
     }
 
     getAllUsers() {
         axios.get('/api/users/').then( (users) => {
-            console.log('getallusers returns: ', users);
         })
     }
 
@@ -76,6 +75,10 @@ export class Dashboard extends Component{
     
     componentWillUnmount(){
         this.setState({isDashCurrent: false})
+    }
+
+    toggleTextInput () {
+        this.setState({toggleTextPost: !this.state.toggleTextPost})
     }
 
     render(){
@@ -98,14 +101,24 @@ export class Dashboard extends Component{
                     <div className="profileimage">
                     <img className="profileimage" src={this.state.currentuser.userimg} alt=""/>
                     </div>
-                    <div id="createnew">
-                    <div id="text">
-                    <InsertText/>
+
+                <div id="createnew">
+
+                    <div id="text" onClick={this.toggleTextInput}>
+                    <InsertText />
                     <div className="atitle">
                     Text
                     </div>
                     </div>
 
+                    {this.state.toggleTextPost ? 
+                    <TextPost/>
+                    :
+                    null
+                    }
+                
+                    
+                    
                     <div id="photo">
                     <InsertPhoto/>
                     <div className="atitle b">
@@ -148,7 +161,7 @@ export class Dashboard extends Component{
                     </div>
                     </div>
 
-                    </div>
+                </div>
                 </div>
 
                     {/* <div className="feed" key={posts}> */}
