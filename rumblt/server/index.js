@@ -40,6 +40,26 @@ app.get('/api/users/', (req, res) => {
     });
 })
 
+
+
+app.get('/api/users', (req, res)=>{
+    const dbInstance = req.app.get('db');
+
+    dbInstance.getPost().then(posts=>{
+        var num = Math.floor(Math.random()*posts.length)
+        console.log(posts[num])
+        res.status(200).send(posts[num])
+    }).catch(err=>{
+        console.log(err)
+    })
+
+})
+
+
+app.post('/api/newuser/', (req, res)=> {
+    let{userid, name, username, blogtitle} = req.body;
+    req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
+
 //go on dashboard
 app.get('/api/posts/' , (req, res)=> {
 const dbInstance = req.app.get('db');
