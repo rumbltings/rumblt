@@ -40,12 +40,17 @@ app.get('/api/users/', (req, res) => {
     });
 })
 
-
-app.get('/api/users', (req, res)=>{
+app.get('/api/posts/', (req, res)=>{
     const dbInstance = req.app.get('db');
-    dbInstance.getAllUsers().then(users=>{
-        res.status(200).send(users)
-    }).catch(err=>res.status(500).send(err))
+
+    dbInstance.getPost().then(posts=>{
+        var num = Math.floor(Math.random()*posts.length)
+        console.log(posts[num])
+        res.status(200).send(posts[num])
+    }).catch(err=>{
+        console.log(err)
+    })
+
 })
 
 

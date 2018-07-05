@@ -8,6 +8,7 @@ import  {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import ChatUsers from './ChatUsers';
 import axios from 'axios';
+import RandomPost from './RandomPost';
 // import {compose} from 'recompose';
 // import withAuthentication from '../../withAuthentication';
 // import withAuthorization from '../../withAuthorization';
@@ -76,7 +77,8 @@ export class Dashboard extends Component{
 
     getLoggedUser () {
         if (!this.props.authUser) {
-            window.location.href = '/#/';
+            // window.location.href = '/#/';
+            console.log('NO USER!!')
         } else {
             axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
                 console.log('current user: ', user);
@@ -199,7 +201,7 @@ export class Dashboard extends Component{
                     Explore all of Rumblt
 
                     <div className="randompost">
-                    Random Post Goes HERE
+                    <RandomPost/>
                     </div>
                 </div>
 

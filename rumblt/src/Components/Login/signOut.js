@@ -8,7 +8,7 @@ const SignOutButton = () =>
 
   <button
     type="button"
-    onClick={() => {auth.doSignOut, window.location.href='/#/'}}
+    onClick={() => {auth.doSignOut(), window.location.href='/#/'}}
   >
     Sign Out
   </button>

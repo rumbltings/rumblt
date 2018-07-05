@@ -1,0 +1,1 @@
+select * from posts cross join users;
