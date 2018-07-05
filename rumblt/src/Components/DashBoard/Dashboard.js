@@ -67,21 +67,32 @@ export class Dashboard extends Component{
                 postContent: 'http://31.media.tumblr.com/3bd9841af890cda9fcb248719385443e/tumblr_msy3raNtLP1shivooo1_400.gif',
                 notes: 10
             }   
-        ]
+        ],
+            currentuser: [],
+            posts: []
 
         }
+        this.getLoggedUser = this.getLoggedUser.bind(this);
+    }
 
+    getAllPosts(){
+        axios.get('/api/posts/').then((posts)=> {
+            // console.log(posts + "I'm your posts bitch")
+            this.setState({posts:posts.data})
+            console.log(this.state.posts)
+        })
     }
 
    
 
     getLoggedUser () {
-        if (!this.props.authUser) {
-            // window.location.href = '/#/';
-            console.log('NO USER!!')
+        if (this.props.authUser === null) {
+            window.location.href = '/#/';
         } else {
             axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
                 console.log('current user: ', user);
+                this.setState({currentuser:user.data[0]})
+                console.log(this.state.currentuser.userid + "i'm state bitch")
             })
         }
     }
@@ -92,14 +103,17 @@ export class Dashboard extends Component{
         })
     }
 
+    componentWillMount(){
+        this.getLoggedUser();
+    }
     componentDidMount(){
-
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
 
         this.getLoggedUser();
-        this.getAllUsers();
+        this.getAllUsers(); 
+        this.getAllPosts();
     }
     
     componentWillUnmount(){
@@ -107,7 +121,8 @@ export class Dashboard extends Component{
     }
 
     render(){
-        if(this.props.authUser !== null || this.props.authUser === null) {
+     
+        if(this.props.authUser !== null) {
         return(
             
             <div id='maindash'>
@@ -123,7 +138,8 @@ export class Dashboard extends Component{
                 <div className="dashfeedtop">
 
                     <div className="profileimage">
-                    <img src={this.state.dummyUser.profileImage} alt=""/>
+                    {/* <img src={this.state.dummyUser.profileImage} alt=""/> */}
+                    <img className="profileimage" src={this.state.currentuser.userimg} alt=""/>
                     </div>
                     <div id="createnew">
                     <div id="text">
@@ -178,15 +194,15 @@ export class Dashboard extends Component{
                     </div>
                 </div>
 
-                    <div className="feed">
-                    {this.state.dummyData.map(post=>{
+                    {/* <div className="feed" key={posts}> */}
+                    {this.state.posts.map((post, i) =>{
                         return (
-                            <div key={post}>
-                                <DashFeed {...post}/>
+                            <div className="feed" key={post + i}>
+                                <DashFeed {...post} />
                             </div>
                         )
                     })}
-                    </div>
+                    {/* </div> */}
                 </div>
 
                 <div id="dashright">
@@ -209,11 +225,8 @@ export class Dashboard extends Component{
                 </div>
             </div>
         )}else {
-            return (
-                <div>
-                    <h1>Whoops! Something went wrong</h1>
-                    <h3>Please <Link to='/'>try again</Link></h3>
-                </div>
+            return(
+            window.location.href = '/#/'
             )
         }
     }

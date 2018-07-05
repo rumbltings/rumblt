@@ -40,7 +40,9 @@ app.get('/api/users/', (req, res) => {
     });
 })
 
-app.get('/api/posts/', (req, res)=>{
+
+
+app.get('/api/users', (req, res)=>{
     const dbInstance = req.app.get('db');
 
     dbInstance.getPost().then(posts=>{
@@ -57,6 +59,32 @@ app.get('/api/posts/', (req, res)=>{
 app.post('/api/newuser/', (req, res)=> {
     let{userid, name, username, blogtitle} = req.body;
     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
+
+//go on dashboard
+app.get('/api/posts/' , (req, res)=> {
+const dbInstance = req.app.get('db');
+dbInstance.getAllPosts().then(posts=> {
+    console.log(posts)
+    res.status(200).send(posts)
+}).catch(err=> {
+    res.status(500).send(err)
+})
+})
+//users profile
+app.get('/api/posts/:userid', (req, res)=> {
+    const userid = req.params.userid;
+    const dbInstance = req.app.get('db');
+    dbInstance.getSingleUserPosts([userid]).then(posts => {
+        
+        res.status(200).send(posts)
+    }).catch(err=> {
+        res.status(500).send(err)
+    })
+})
+
+app.post('/api/newuser/', (req, res)=> {
+    let{userid, name, username, blogtitle, userimg} = req.body;
+    req.app.get('db').addUser([userid, name, username, blogtitle, userimg]).then(ok=> {
         res.sendStatus(200);
     }).catch(err=> {
         console.log(err);
