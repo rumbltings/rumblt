@@ -32,6 +32,7 @@ class SignUpForm extends Component {
       email: '',
       userid: '',
       blogtitle:'',
+      userimg: '',
       passwordOne: '',
       passwordTwo: ''
     };
@@ -56,10 +57,9 @@ class SignUpForm extends Component {
           .then(() => {
             //this.setState(() => ({ ...INITIAL_STATE }));
             this.setState({userid: authUser.user.uid});
-            console.log(this.state.userid);
           }).then( () => {
-            let {userid, name, username, blogtitle} = this.state;
-            axios.post('/api/newuser/', {userid, name, username, blogtitle}).then( () => {
+            let {userid, name, username, blogtitle, userimg} = this.state;
+            axios.post('/api/newuser/', {userid, name, username, blogtitle, userimg}).then( () => {
               console.log('user made good si')
             }).then(() => {window.location.href = '/#/dashboard'})
           })
@@ -67,24 +67,21 @@ class SignUpForm extends Component {
       .catch(error => {
         console.log(error);
       });
+      
     event.preventDefault();
 
   }
 
-  // handleInputChange (event) {
-  //   this.setState({[event.target.name]: event.target.value});
-  //   console.log(this.state.blogtitle);
-  // }
-
+ 
   render() {
     const {
       name,
       email,
       username,
       blogtitle,
+      userimg,
       passwordOne,
       passwordTwo,
-      error,
     } = this.state;
 
     const isInvalid =
@@ -122,6 +119,12 @@ class SignUpForm extends Component {
         type='text'
         placeholder='Name your blog!'
         />
+        <br/>
+        <input value={userimg}
+        onChange={event => this.setState(updateByPropertyName('userimg', event.target.value))}
+        type='text'
+        placeholder='Profile image'
+        />
         <br />
         <input
           value={passwordOne}
@@ -141,7 +144,7 @@ class SignUpForm extends Component {
           Sign Up
         </button>
 
-        { error && <p>{error.message}</p> }
+        {/* { error && <p>{error.message}</p> } */}
       </form>
     );
   }

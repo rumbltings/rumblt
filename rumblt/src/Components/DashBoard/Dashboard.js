@@ -23,78 +23,66 @@ import InsertLink from './Icons/InsertLink';
 import InsertChat from './Icons/InsertChat';
 import InsertAudio from './Icons/InsertAudio';
 import InsertVideo from './Icons/InsertVideo';
+import TextPost from './Post/TextPost';
 
 
 export class Dashboard extends Component{
-    constructor(){
-        super()
-        this.state={
-            posts: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
-            isDashCurrent: false,
-            dummyData: [{
-                id: 1,
-                posterImage: 'https://78.media.tumblr.com/e61a924e988536de900ac6c3a9ef97fa/tumblr_os5r54nmOz1tcslufo1_400.png',
-                posterName: 'Poster 1',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'https://pics.me.me/i-wish-i-was-a-shibe-3398650.png',
-                notes: 123
-            },
-            {
-                id: 2,
-                posterImage: 'https://78.media.tumblr.com/6c039a0bb30eddc57524f8d490036da3/tumblr_ofzb7eKvce1ukzs7qo1_500.png',
-                posterName: 'Poster 2',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'http://www.mypokecard.com/my/galery/p7o782CtWOsk.jpg',
-                notes: 0
-            },
-            {
-                id: 3,
-                posterImage: 'https://78.media.tumblr.com/3b047b40120348466074a3491ce4fe6c/tumblr_oqtvlgp87H1t4rhclo3_400.png',
-                posterName: 'Poster 3',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'https://pics.me.me/i-wish-i-was-a-shibe-3398650.png',
-                notes: 3798
-            },
-            {
-                id: 4,
-                posterImage: 'https://78.media.tumblr.com/670412ed8df88f5978159e86e2333eff/tumblr_p2vwm5d72t1uskm6lo1_500.jpg',
-                posterName: 'Poster 4',
-                postCaption: 'Hello! This is My Post!',
-                postContent: 'http://31.media.tumblr.com/3bd9841af890cda9fcb248719385443e/tumblr_msy3raNtLP1shivooo1_400.gif',
-                notes: 10
-            }   
-        ]
-
+        constructor(){
+            super();
+            this.state={
+                currentuser: [],
+                posts: [],
+                toggleTextPost: false,
+                textInput: ''
         }
+        this.getLoggedUser = this.getLoggedUser.bind(this);
+        this.toggleTextInput = this.toggleTextInput.bind(this);
+    }
 
+    getAllPosts(){
+        axios.get('/api/posts/').then((posts)=> {
+            this.setState({posts:posts.data})
+        })
     }
 
     getLoggedUser () {
-        axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
-            console.log('current user: ', user);
-        })
+        if (this.props.authUser === null) {
+            window.location.href = '/#/';
+        } else {
+            axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
+                console.log('current user: ', user);
+                this.setState({currentuser:user.data[0]})
+            })
+        }
     }
 
     getAllUsers() {
         axios.get('/api/users/').then( (users) => {
-            console.log('getallusers returns: ', users);
         })
     }
 
+    componentWillMount(){
+        this.getLoggedUser();
+    }
     componentDidMount(){
-
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
         this.getLoggedUser();
-        this.getAllUsers();
+        this.getAllUsers(); 
+        this.getAllPosts();
     }
     
     componentWillUnmount(){
         this.setState({isDashCurrent: false})
     }
 
+    toggleTextInput () {
+        this.setState({toggleTextPost: !this.state.toggleTextPost})
+    }
+
     render(){
+     
         if(this.props.authUser !== null) {
         return(
             
@@ -111,16 +99,26 @@ export class Dashboard extends Component{
                 <div className="dashfeedtop">
 
                     <div className="profileimage">
-                    image
+                    <img className="profileimage" src={this.state.currentuser.userimg} alt=""/>
                     </div>
-                    <div id="createnew">
-                    <div id="text">
-                    <InsertText/>
+
+                <div id="createnew">
+
+                    <div id="text" onClick={this.toggleTextInput}>
+                    <InsertText />
                     <div className="atitle">
                     Text
                     </div>
                     </div>
 
+                    {this.state.toggleTextPost ? 
+                    <TextPost/>
+                    :
+                    null
+                    }
+                
+                    
+                    
                     <div id="photo">
                     <InsertPhoto/>
                     <div className="atitle b">
@@ -163,18 +161,18 @@ export class Dashboard extends Component{
                     </div>
                     </div>
 
-                    </div>
+                </div>
                 </div>
 
-                    <div className="feed">
-                    {this.state.dummyData.map(post=>{
+                    {/* <div className="feed" key={posts}> */}
+                    {this.state.posts.map((post, i) =>{
                         return (
-                            <div key={post}>
-                                <DashFeed {...post}/>
+                            <div className="feed" key={post + i}>
+                                <DashFeed {...post} />
                             </div>
                         )
                     })}
-                    </div>
+                    {/* </div> */}
                 </div>
 
                 <div id="dashright">
@@ -191,11 +189,8 @@ export class Dashboard extends Component{
                 </div>
             </div>
         )}else {
-            return (
-                <div>
-                    <h1>Whoops! Something went wrong</h1>
-                    <h3>Please <Link to='/'>try again</Link></h3>
-                </div>
+            return(
+            window.location.href = '/#/'
             )
         }
     }
