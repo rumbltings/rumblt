@@ -32,7 +32,6 @@ app.get('/api/users/:userid', (req, res) => {
 app.get('/api/users/', (req, res) => {
     const dbInstance = req.app.get('db');
     dbInstance.getallusers().then(users => {
-        console.log(users);
         res.status(200).send(users);
     }).catch(err => {
         console.log(err);
@@ -54,9 +53,8 @@ dbInstance.getAllPosts().then(posts=> {
 app.get('/api/posts/:userid', (req, res)=> {
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
-    dbInstance.getSingleUserPosts([userid]).then(posts => {
-        
-        res.status(200).send(posts)
+    dbInstance.getSingleUserPosts([userid]).then(user => {
+        res.status(200).send(user)
     }).catch(err=> {
         res.status(500).send(err)
     })
