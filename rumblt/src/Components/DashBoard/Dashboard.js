@@ -5,7 +5,6 @@ import '../Headers/Login Header/LoginHeader.css'
 import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
 import ChatUsers from './ChatUsers';
 import axios from 'axios';
 import RandomPost from './RandomPost';
@@ -92,7 +91,7 @@ export class Dashboard extends Component{
             axios.get(`/api/users/${this.props.authUser.uid}`).then((user) => {
                 console.log('current user: ', user);
                 this.setState({currentuser:user.data[0]})
-                console.log(this.state.currentuser.userid + "i'm state bitch")
+                // console.log(this.state.currentuser.userid + "i'm state bitch")
             })
         }
     }
@@ -105,6 +104,7 @@ export class Dashboard extends Component{
 
     componentWillMount(){
         this.getLoggedUser();
+        console.log('Very Props, WOW',this.props)
     }
     componentDidMount(){
         console.log('Auth User', this.props.authUser);
@@ -127,8 +127,9 @@ export class Dashboard extends Component{
             
             <div id='maindash'>
                 <div id='headerdiv'>
-                    <MainHeader isDashCurrent={this.state.isDashCurrent}/>
-                    <SignOutButton />
+                
+                    <MainHeader isDashCurrent={this.state.isDashCurrent} currentuser={this.state.currentuser}/>
+                    
                     {/* {this.props.authUser.email} */}
                     
                 </div>

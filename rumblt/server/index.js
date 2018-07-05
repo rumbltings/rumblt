@@ -92,4 +92,26 @@ app.post('/api/newuser/', (req, res)=> {
     })
 })
 
+app.get('/api/likeCount/:userid', (req, res)=>{
+    const userid = req.params.userid;
+    const dbInstance = req.app.get('db');
+    dbInstance.likesCount([userid]).then(count => {
+        res.status(200).send(count)
+    }).catch(err=>{
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
+app.get('/api/postCount/:userid', (req, res)=>{
+    const userid = req.params.userid;
+    const dbInstance = req.app.get('db');
+    dbInstance.postCount([userid]).then(count => {
+        res.status(200).send(count)
+    }).catch(err=>{
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
 app.listen(SERVER_PORT, () => {console.log(`listening on ${SERVER_PORT}`)});

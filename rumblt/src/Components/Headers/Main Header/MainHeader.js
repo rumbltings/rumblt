@@ -6,14 +6,15 @@ import home from './icons/home.svg';
 import message from './icons/message.svg';
 import profile from './icons/profile.svg';
 import edit from './icons/edit.svg';
-import logo from './icons/logo.svg';
-import Logo from './icons/Logo';
 import search from './icons/search.svg';
 import aHome from './icons/homeActive.svg'
 import aExplore from './icons/aExplore.svg'
 import aChat from './icons/aChat.svg'
 import aProfile from './icons/aProfile.svg'
 import UserInfo from './Sub Components/UserInfo/UserInfo';
+import axios from 'axios';
+import ChatWindow from './Sub Components/Chat Window/ChatWindow';
+import ChatModal from './Sub Components/ChatModal/ChatModal';
 
 
 
@@ -27,7 +28,10 @@ export default class MainHeader extends Component{
         super()
         this.state={
             chatActive: false,
-            profileActive: false
+            profileActive: false,
+            likeCount: 0,
+            postCount: 0,
+            users: []
            
         }
     }
@@ -38,7 +42,35 @@ export default class MainHeader extends Component{
             profileActive: false
         })
     }
-    
+
+   getLikeCount(){
+        axios.get(`/api/likeCount/${this.props.currentuser.userid}`).then(res=>{
+            let cc = res.data[0]
+            this.setState({likeCount: cc.count})
+            
+        })
+   }
+   
+   getPostCount(){
+        axios.get(`/api/postCount/${this.props.currentuser.userid}`).then(res=>{
+            let pc = res.data[0]
+            this.setState({postCount: pc.count})
+            console.log('AHHHH', this.props, pc.count)
+        })
+   }
+
+   getUsers(){
+    axios.get('/api/users').then(res=>{
+        this.setState({users: res.data})
+    })
+   }
+
+
+    componentDidMount(){
+        this.getLikeCount();
+        this.getPostCount();
+        this.getUsers();
+    }
 
     render(){
         return(
@@ -79,7 +111,11 @@ export default class MainHeader extends Component{
 
 
                     <img id='iconh' src={this.state.profileActive ? aProfile : profile} alt=""
-                    onClick={()=>{this.setState({profileActive: !this.state.profileActive, chatActive: false})}}
+                    onClick={()=>{
+                        this.setState({profileActive: !this.state.profileActive, chatActive: false})
+                        this.getPostCount();
+                        this.getLikeCount();
+                    }}
                     />
 
                     <img id='edit' src={edit} alt=""/>
@@ -89,7 +125,14 @@ export default class MainHeader extends Component{
             </div>
 
             <div id="modals">
-            <UserInfo/>
+            <div className={this.state.profileActive ? 'userinfomod' : 'userinfomod hidemodal'}>
+            <UserInfo currentuser={this.props.currentuser} postCount={this.state.postCount} likeCount={this.state.likeCount}/>
+            </div>
+
+            <div className={this.state.chatActive ? 'chatmod' : 'chatmod hidemodal'}>
+            <ChatModal users={this.state.users} currentuser={this.props.currentuser}/>
+            </div>
+
             </div>
                     </div>
         )

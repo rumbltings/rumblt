@@ -1,56 +1,140 @@
 import React from 'react';
+import './UserInfo.css'
+import SignOutButton from '../../../../Login/signOut';
 
-export default function UserInfo(){
+export default function UserInfo(props){
+    console.log(props, 'ppppropss')
     return(
-        <div>
+        <div id='ui'>
             <div className="uitop">
 
-                <div className="uitopheader">
-                ACCOUNT
-                Log Out
-                </div>
+                <div className="uiheader">
 
-                <div className="uilikes">
-                    <div className="uiheart">
-                    likes
+                    <div className="uiheaderleft">
+                    ACCOUNT
                     </div>
 
-                    num
+                    <div className="uiheaderright">
+                    <SignOutButton/>
+                    </div>
+
+                </div>
+
+                <div className="uilikes uicolumn hov">
+
+                <div className="leftwrapper">
+
+                    <div className="uiimage">
+                    IMG
+                    </div>
+
+                    <div className="uitext">
+                    Likes
+                    </div>
+
+                </div>
+
+                    <div className="uinum">
+                    {props.likeCount}
+                    </div>
 
                 </div>
                 
-                <div className="uifollowing">
-                <div className="uiimage">
-                IMG
+                <div className="uifollowing uicolumn hov">
+
+                <div className="leftwrapper">
+
+                    <div className="uiimage">
+                    IMG
+                    </div>
+
+                    <div className="uitext">
+                    Following
+                    </div>
+
                 </div>
 
-                <div className="uitext">
-                Following
+                    <div className="uinum">
+                    #
+                    </div>
+
                 </div>
 
-                <div className="uinum">
-                #
-                </div>
+                <div className="uisettings uicolumn hov">
+
+                <div className="leftwrapper">
+                    <div className="uiimage">
+                    IMG
+                    </div>
+
+                    <div className="uitext">
+                    Settings
+                    </div>
                 </div>
 
-                <div className="uisettings">
                 </div>
 
-                <div className="uihelp">
+                <div className="uihelp uicolumn hov">
+
+                <div className="leftwrapper">
+                    
+                    <div className="uiimage">
+                    IMG
+                    </div>
+
+                    <div className="uitext">
+                    Help
+                    </div>
+                </div>
+                
                 </div>
 
             </div>
+
+
             <div className="uibottom">
-                <div className="uibotheader">
+                <div className="uiheader">
+
+                    <div className="uiheaderleft">
+                    RUMBLTRS
+                    </div>
+
+                    <div className="uiheaderright">
+                    +New
+                    </div>
+
                 </div>
 
-                <div className="uiuser">
+                <div className="uiuser hov">
+                
+                <div className="uiuserimg">
+                <img src={props.currentuser.userimg} alt=""/>
                 </div>
 
-                <div className="uiposts">
+                <div className="uiuserinfo">
+                <div className="uiusername">
+                {props.currentuser.username}
+                </div>
+                <div className="uiblogtitle">
+                {props.currentuser.blogtitle}
+                </div>
                 </div>
 
-                <div className="uifollowers">
+                </div>
+
+                <div className="uibtext hov">
+                    <div className='uitext'>
+                    Posts
+                    </div>
+                    <div className='uinum'>
+                        {props.postCount}
+                    </div>
+                </div>
+
+                <div className="uibtext hov">
+                <div className="uitext">
+                    Followers
+                    </div>
                 </div>
 
             </div>
