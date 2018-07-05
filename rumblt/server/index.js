@@ -38,6 +38,26 @@ app.get('/api/users/', (req, res) => {
     });
 })
 
+
+
+app.get('/api/randpost/', (req, res)=>{
+    const dbInstance = req.app.get('db');
+
+    dbInstance.getPost().then(posts=>{
+        var num = Math.floor(Math.random()*posts.length)
+        console.log(posts[num])
+        res.status(200).send(posts[num])
+    }).catch(err=>{
+        console.log(err)
+    })
+
+})
+
+
+// app.post('/api/newuser/', (req, res)=> {
+//     let{userid, name, username, blogtitle} = req.body;
+//     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
+
 //go on dashboard
 app.get('/api/posts/' , (req, res)=> {
 const dbInstance = req.app.get('db');
@@ -64,6 +84,28 @@ app.post('/api/newuser/', (req, res)=> {
         res.sendStatus(200);
     }).catch(err=> {
         console.log(err);
+        res.status(500).send(err)
+    })
+})
+
+app.get('/api/likeCount/:userid', (req, res)=>{
+    const userid = req.params.userid;
+    const dbInstance = req.app.get('db');
+    dbInstance.likesCount([userid]).then(count => {
+        res.status(200).send(count)
+    }).catch(err=>{
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
+app.get('/api/postCount/:userid', (req, res)=>{
+    const userid = req.params.userid;
+    const dbInstance = req.app.get('db');
+    dbInstance.postCount([userid]).then(count => {
+        res.status(200).send(count)
+    }).catch(err=>{
+             console.log(err);
         res.status(500).send(err)
     })
 })

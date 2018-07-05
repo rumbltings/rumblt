@@ -75,9 +75,31 @@
     align-items: center;
 }
 
+#modals{
+    margin-right: 40px;
+    display: flex;
+    justify-content: flex-end;
+}
 
-.modal-backdrop{
-    background: pink;
+.userinfomod{
+    
+    height: 330px;
+    width: 300px;
+    overflow: hidden;
+    transition: .75s ease width, 1s ease height;
+    
+}
+
+.chatmod{
+    width: 300px;
+    height: 330px;
+    overflow: hidden;
+    transition: .75s ease height, 1s ease width;
+}
+
+.hidemodal{
+    height: 0;
+    width: 0;
 }
 
 #headerLogo{

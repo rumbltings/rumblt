@@ -1,17 +1,13 @@
-//Header
-//Footer
-//Feed
-//Chat Display
-//Random Post
+
 import React, {Component} from 'react';
 import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
 import './Dashboard.css'
 import DashFeed from './DashFeed/DashFeed'
 import  {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
-
+import ChatUsers from './ChatUsers';
 import axios from 'axios';
+import RandomPost from './RandomPost';
 // import {compose} from 'recompose';
 // import withAuthentication from '../../withAuthentication';
 // import withAuthorization from '../../withAuthorization';
@@ -27,13 +23,15 @@ import TextPost from './Post/TextPost';
 
 
 export class Dashboard extends Component{
+
         constructor(){
             super();
             this.state={
                 currentuser: [],
                 posts: [],
                 toggleTextPost: false,
-                textInput: ''
+                textInput: '',
+                isDashCurrent: false
         }
         this.getLoggedUser = this.getLoggedUser.bind(this);
         this.toggleTextInput = this.toggleTextInput.bind(this);
@@ -44,6 +42,8 @@ export class Dashboard extends Component{
             this.setState({posts:posts.data})
         })
     }
+
+   
 
     getLoggedUser () {
         if (this.props.authUser === null) {
@@ -63,11 +63,13 @@ export class Dashboard extends Component{
 
     componentWillMount(){
         this.getLoggedUser();
+        console.log('Very Props, WOW',this.props)
     }
     componentDidMount(){
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
         this.setState({isDashCurrent: true})
+
         this.getLoggedUser();
         this.getAllUsers(); 
         this.getAllPosts();
@@ -88,9 +90,10 @@ export class Dashboard extends Component{
             
             <div id='maindash'>
                 <div id='headerdiv'>
-                    <MainHeader isDashCurrent={this.state.isDashCurrent}/>
-                    <SignOutButton />
-                    {this.props.authUser.email}
+                
+                    <MainHeader isDashCurrent={this.state.isDashCurrent} currentuser={this.state.currentuser}/>
+                    
+                    {/* {this.props.authUser.email} */}
                     
                 </div>
                 <div id="maincontent">
@@ -99,6 +102,7 @@ export class Dashboard extends Component{
                 <div className="dashfeedtop">
 
                     <div className="profileimage">
+                    {/* <img src={this.state.dummyUser.profileImage} alt=""/> */}
                     <img className="profileimage" src={this.state.currentuser.userimg} alt=""/>
                     </div>
 
@@ -176,12 +180,18 @@ export class Dashboard extends Component{
                 </div>
 
                 <div id="dashright">
-                    <div className="chat">
-                        Chat goes here
+                    <div id="chatheader">
+                    RECOMMENDED CHAT
                     </div>
+                    <div id='dashchat'>
+                    <div id='chatusercontainer'>
+                        <ChatUsers/>
+                    </div>
+                    </div>
+                    Explore all of Rumblt
 
                     <div className="randompost">
-                    Random Post Goes HERE
+                    <RandomPost/>
                     </div>
                 </div>
 

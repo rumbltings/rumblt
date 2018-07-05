@@ -8,6 +8,15 @@ export default class DashFeed extends Component{
     constructor(){
         super()
 
+        this.state={
+            randomImg: ['https://78.media.tumblr.com/7d376efd024eadd902a8bb60c8155c94/tumblr_o51oavbMDx1ugpbmuo4_540.png', 'https://78.media.tumblr.com/004fac2f3b9691a47941d0710496bfff/tumblr_o51oavbMDx1ugpbmuo9_540.png', 'https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_540.png', 'https://78.media.tumblr.com/2060fe62b7ed3b46e5789356942a305e/tumblr_o51oavbMDx1ugpbmuo2_540.png']
+        }
+
+    }
+
+    componentDidMount(){
+
+        console.log("ITS BRITTANY BITCH", this.props)
     }
 
     render(){
@@ -15,7 +24,10 @@ export default class DashFeed extends Component{
            
             <div id='maindashfeed'>
                 <div className="posterimage">
-                <img src={this.props.userimg} alt=""/>
+                {this.props.userimg !== null ? 
+                <img src={this.props.userimg} alt=""/> :
+                <img src={this.state.randomImg[Math.floor(Math.random()*this.state.randomImg.length)]} alt=""/>
+                }
                 </div>
 
                 <div className="postdisplay">

@@ -3,10 +3,12 @@
     margin-bottom: 20px;
     display: flex;
     justify-content: space-between;
+    font: 12px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    
 }
 
 .posterimage{
-    background: palevioletred;
+    
     height: 64px;
     width: 64px;
     border-radius: 4px;
@@ -19,6 +21,7 @@
 .posterimage img{
     display: block;
     height: 64px;
+    min-width: 64px;
 }
 
 .postdisplay{
@@ -37,8 +40,14 @@
     display: flex;
     align-items: center;
     padding-left: 20px;
+    font-weight: 600;
 }
 
 .pdfooter{
     min-height: 50px;
+    
+}
+
+.notes{
+    font-weight: 600;
 }
