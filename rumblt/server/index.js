@@ -42,7 +42,7 @@ app.get('/api/users/', (req, res) => {
 
 
 
-app.get('/api/users', (req, res)=>{
+app.get('/api/randpost/', (req, res)=>{
     const dbInstance = req.app.get('db');
 
     dbInstance.getPost().then(posts=>{
@@ -56,9 +56,9 @@ app.get('/api/users', (req, res)=>{
 })
 
 
-app.post('/api/newuser/', (req, res)=> {
-    let{userid, name, username, blogtitle} = req.body;
-    req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
+// app.post('/api/newuser/', (req, res)=> {
+//     let{userid, name, username, blogtitle} = req.body;
+//     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
 
 //go on dashboard
 app.get('/api/posts/' , (req, res)=> {

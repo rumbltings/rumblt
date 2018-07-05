@@ -20,12 +20,16 @@
     height: 800px;
     position: sticky;
     top: 74px;
+    font: 12px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    color: #919aa7;
+    font-weight: 700;
 }
 #maincontent{
     display: flex;
     justify-content: center;
     align-self: center;
     padding-top: 90px;
+    
 }
 
 .dashfeedtop{
@@ -92,7 +96,8 @@
 #dashchat{
     height: 243px;
     overflow: auto;
-
+    margin-bottom: 5px;
+    border-bottom: #5e6b7d 2px solid;
     
 }
 

@@ -1,1 +1,1 @@
-select postid, a.userid, type, tag, posttime,  content, b.name, b.userimg from posts a left join users b on a.userid = b.userid order by posttime desc;
+select * from posts a left join users b on a.userid = b.userid order by posttime desc;

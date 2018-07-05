@@ -8,7 +8,7 @@
 }
 
 .posterimage{
-    background: palevioletred;
+    
     height: 64px;
     width: 64px;
     border-radius: 4px;
@@ -21,6 +21,7 @@
 .posterimage img{
     display: block;
     height: 64px;
+    min-width: 64px;
 }
 
 .postdisplay{

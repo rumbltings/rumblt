@@ -15,7 +15,7 @@ export default class RandomPost extends Component{
     }
 
     componentDidMount(){
-        axios.get('/api/posts/').then(res =>{
+        axios.get('/api/randpost/').then(res =>{
 
             this.setState({displayPost: res.data});
             console.log('display', this.state.displayPost)
