@@ -1,0 +1,9 @@
+#navBar {
+  position: fixed;
+}
+
+.below_header {
+  background-color: #36465d;
+  padding-top: 54px;
+  height: 100%;
+}
