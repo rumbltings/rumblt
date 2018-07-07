@@ -55,7 +55,6 @@ export default class MainHeader extends Component{
         axios.get(`/api/postCount/${this.props.currentuser.userid}`).then(res=>{
             let pc = res.data[0]
             this.setState({postCount: pc.count})
-            console.log('AHHHH', this.props, pc.count)
         })
    }
 

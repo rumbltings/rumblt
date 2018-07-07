@@ -3,7 +3,6 @@ import './UserInfo.css'
 import SignOutButton from '../../../../Login/signOut';
 
 export default function UserInfo(props){
-    console.log(props, 'ppppropss')
     return(
         <div id='ui'>
             <div className="uitop">

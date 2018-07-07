@@ -111,8 +111,8 @@ app.get('/api/postCount/:userid', (req, res)=>{
 })
 
 app.post('/api/posts/new', (req, res) => {
-    let {textInput, typetext, tagInput, uid} = req.body;
-    req.app.get('db').addPost([typetext, tagInput, textInput, uid]).then(ok => {
+    let {imgurl, textInput, typetext, tagInput, uid} = req.body;
+    req.app.get('db').addPost([typetext, tagInput, textInput, uid, imgurl]).then(ok => {
         res.status(200).send('ok')
     }).catch(err=> {
         console.log(err);

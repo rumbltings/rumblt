@@ -14,10 +14,6 @@ export default class DashFeed extends Component{
 
     }
 
-    componentDidMount(){
-
-        console.log("ITS BRITTANY BITCH", this.props)
-    }
 
     render(){
         return(
