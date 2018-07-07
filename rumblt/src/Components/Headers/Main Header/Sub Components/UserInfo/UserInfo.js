@@ -1,8 +1,31 @@
 import React from 'react';
-import './UserInfo.css'
+import axios from 'axios';
+import './UserInfo.css';
+import {connect} from 'react-redux';
 import SignOutButton from '../../../../Login/signOut';
 
-export default function UserInfo(props){
+export class UserInfo extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            currentuser: {
+                id: '',
+                img: '',
+                username: '',
+                blogtitle: '',
+            }
+        }
+    }
+
+    componentDidMount () {
+        this.setState({id: this.props.authUser.uid })
+
+        axios.get(`/api/users/${this.props.authUser.uid}`).then((res) => {
+            
+        })
+    }
+
+    render () {
     return(
         <div id='ui'>
             <div className="uitop">
@@ -34,7 +57,7 @@ export default function UserInfo(props){
                 </div>
 
                     <div className="uinum">
-                    {props.likeCount}
+                    {this.props.likeCount}
                     </div>
 
                 </div>
@@ -107,15 +130,15 @@ export default function UserInfo(props){
                 <div className="uiuser hov">
                 
                 <div className="uiuserimg">
-                <img src={props.currentuser.userimg} alt=""/>
+                <img src={this.props.authUser} alt=""/>
                 </div>
 
                 <div className="uiuserinfo">
                 <div className="uiusername">
-                {props.currentuser.username}
+                username
                 </div>
                 <div className="uiblogtitle">
-                {props.currentuser.blogtitle}
+                blogtitle
                 </div>
                 </div>
 
@@ -126,7 +149,7 @@ export default function UserInfo(props){
                     Posts
                     </div>
                     <div className='uinum'>
-                        {props.postCount}
+                        {this.props.postCount}
                     </div>
                 </div>
 
@@ -138,5 +161,13 @@ export default function UserInfo(props){
 
             </div>
         </div>
-    )
+    )}
 }
+
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser
+  });
+  
+  const authCondition = (authUser) => !!authUser;
+  
+  export default connect(mapStateToProps)(UserInfo);

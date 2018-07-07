@@ -21,7 +21,7 @@ app.get('/api/users/:userid', (req, res) => {
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
     dbInstance.getUser([userid])
-    .then(users => {res.status(200).send(users);
+    .then(user => {res.status(200).send(user);
    }).catch(err => {
     console.log(err);
     res.status(500).send(err)
@@ -71,8 +71,8 @@ dbInstance.getAllPosts().then(posts=> {
 app.get('/api/posts/:userid', (req, res)=> {
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
-    dbInstance.getSingleUserPosts([userid]).then(user => {
-        res.status(200).send(user)
+    dbInstance.getSingleUserPosts([userid]).then(posts => {
+        res.status(200).send(posts)
     }).catch(err=> {
         res.status(500).send(err)
     })
@@ -87,6 +87,7 @@ app.post('/api/newuser/', (req, res)=> {
         res.status(500).send(err)
     })
 })
+
 
 app.get('/api/likeCount/:userid', (req, res)=>{
     const userid = req.params.userid;

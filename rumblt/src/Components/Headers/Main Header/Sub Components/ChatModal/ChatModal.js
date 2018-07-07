@@ -11,7 +11,7 @@ export default function ChatModal(props){
                 <div className="cmhleft">
 
                     <div className="cmimg">
-                        <img src={props.currentuser.userimg ? props.currentuser.userimg : 'https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_500.png'} alt=""/>
+                        <img src='https://refsheet.net/assets/default.png' alt=""/>
                     </div>
 
                     <div className="cmusername">
