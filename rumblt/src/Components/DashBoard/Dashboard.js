@@ -42,7 +42,6 @@ export class Dashboard extends Component{
     getAllPosts(){
         axios.get('/api/posts/').then((posts)=> {
             this.setState({posts:posts.data})
-            console.log(this.state.posts[0].id + "ELLOOOOOOOOO POPPET")
         })
     }
 
