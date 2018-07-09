@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
@@ -20,6 +19,7 @@ import InsertChat from './Icons/InsertChat';
 import InsertAudio from './Icons/InsertAudio';
 import InsertVideo from './Icons/InsertVideo';
 import TextPost from './Post/TextPost';
+import ImgPost from './Post/ImgPost';
 
 
 export class Dashboard extends Component{
@@ -30,11 +30,13 @@ export class Dashboard extends Component{
                 currentuser: [],
                 posts: [],
                 toggleTextPost: false,
+                toggleImgPost: false,
                 textInput: '',
                 isDashCurrent: false
         }
         this.getLoggedUser = this.getLoggedUser.bind(this);
         this.toggleTextInput = this.toggleTextInput.bind(this);
+        this.toggleImgPost = this.toggleImgPost.bind(this);
     }
 
     getAllPosts(){
@@ -63,7 +65,6 @@ export class Dashboard extends Component{
 
     componentWillMount(){
         this.getLoggedUser();
-        console.log('Very Props, WOW',this.props)
     }
     componentDidMount(){
         console.log('Auth User', this.props.authUser);
@@ -81,6 +82,10 @@ export class Dashboard extends Component{
 
     toggleTextInput () {
         this.setState({toggleTextPost: !this.state.toggleTextPost})
+    }
+
+    toggleImgPost () {
+        this.setState({toggleImgPost: !this.state.toggleImgPost})
     }
 
     render(){
@@ -120,15 +125,22 @@ export class Dashboard extends Component{
                     :
                     null
                     }
+
+                    {this.state.toggleImgPost ?
+                    <ImgPost />
+                    :
+                    null
+                    }
                 
                     
                     
-                    <div id="photo">
+                    <div id="photo" onClick={this.toggleImgPost}>
                     <InsertPhoto/>
                     <div className="atitle b">
                     Photo
                     </div>
                     </div>
+
 
                     <div id="quote">
                     <InsertQuote/>
@@ -172,7 +184,7 @@ export class Dashboard extends Component{
                     {this.state.posts.map((post, i) =>{
                         return (
                             <div className="feed" key={post + i}>
-                                <DashFeed {...post} />
+                                <DashFeed {...post}/>
                             </div>
                         )
                     })}

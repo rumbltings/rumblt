@@ -140,7 +140,7 @@ import {connect} from 'react-redux';
     render(){
         return(
             <div>
-              <MainHeader />
+              <MainHeader currentuser={this.props.authUser.uid}/>
               <p>{this.props.authUser.uid}</p>
               <section className='subheader'>
                 <p className='trending' onClick={this.handleChangeToTrending}>Trending</p>

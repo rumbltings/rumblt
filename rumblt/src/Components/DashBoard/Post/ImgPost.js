@@ -3,17 +3,18 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import './TextPost.css';
 
-export class TextPost extends Component {
+export class ImgPost extends Component {
     constructor() {
         super();
         this.state = {
-            textInput: '',
-            tagInput: '',
-            type: 'text',
-        
+            imgurl: '',
+            textInput:'',
+            tagInput:'',
+            type:'img'
         }
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
+        this.handleUrlChange = this.handleUrlChange.bind(this);
         this.sendText = this.sendText.bind(this);
     }
 
@@ -25,21 +26,31 @@ export class TextPost extends Component {
         this.setState({ tagInput: event.target.value })
     }
 
+    handleUrlChange (event) {
+        this.setState({ imgurl: event.target.value })
+    }
+
     sendText () {
-        let {textInput, type, tagInput} = this.state;
+   
+        let {imgurl, textInput, type, tagInput} = this.state;
         let {uid} = this.props.authUser;
-        axios.post('/api/posts/new', {textInput, type, tagInput, uid}).then(() => {
-            this.setState({textInput: '', tagInput: ''})
+        axios.post('/api/posts/new', {type, tagInput, textInput, uid, imgurl}).then(() => {
+            this.setState({textInput: '', tagInput: '', imgurl: ''})
+        
         })
     }
-    
 
-    render () {
+    render() {
         
         return (
-            <div className = 'text-input'>
-
+            <div className='text-input'>
                 <input
+                value={this.state.imgurl}
+                onChange={this.handleUrlChange}
+                type='text'
+                placeholder='image url'
+                />
+                 <input
                 value={this.state.textInput}
                 onChange={this.handleTextChange}
                 type='text'
@@ -51,17 +62,17 @@ export class TextPost extends Component {
                 type='text'
                 placeholder='add some tags!'
                 />
-                <button onClick={this.sendText} >go</button>
-                
+             <button onClick={this.sendText} >go</button>
+
             </div>
         )
     }
 }
+
 const mapStateToProps = (state) => ({
     authUser: state.sessionState.authUser
    });
    
    const authCondition = (authUser) => !!authUser;
    
-   export default connect(mapStateToProps)(TextPost);
-
+   export default connect(mapStateToProps)(ImgPost);
