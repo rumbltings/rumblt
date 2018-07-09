@@ -37,6 +37,7 @@ import axios from 'axios';
             )
         }
     }
+
     
     render(){
         console.log(this.props.content)
