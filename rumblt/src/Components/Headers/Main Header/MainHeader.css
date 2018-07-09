@@ -76,7 +76,7 @@
 }
 
 #modals{
-    margin-right: 40px;
+    padding-right: 40px;
     display: flex;
     justify-content: flex-end;
 }
