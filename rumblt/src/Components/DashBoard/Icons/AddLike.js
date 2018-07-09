@@ -20,7 +20,7 @@ import './Icons.css'
 //     }
 // }
 
-likedPost(){{this.setState({liked: !this.state.liked}).then(console.log(this.props.currentPost + "i'm the liked post"))}
+likedPost(){this.setState({liked: !this.state.liked}), console.log(this.props.currentPost + "i'm the liked post")
 
 }
 
