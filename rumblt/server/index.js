@@ -121,4 +121,13 @@ app.post('/api/posts/new', (req, res) => {
     })
 })
 
+app.get(`/api/userLikes/:userid`, (req, res) => {
+    req.app.get('db').getUserLikes().then(likedPosts => {
+        res.status(200).send(likedPosts)
+    }).catch(err=> {
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
 app.listen(SERVER_PORT, () => {console.log(`listening on ${SERVER_PORT}`)});

@@ -32,8 +32,8 @@ export default class Profile extends Component{
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       // this.getFollowedBlogIds = this.getFollowedBlogIds.bind(this);
-       this.handleChangeToPosts = this.handleChangeToPosts.bind(this);
-      // this.handleChangeToProfileTrending = this.handleChangeToProfileTrending.bind(this);
+       this.getPostsByUser = this.getPostsByUser.bind(this);
+      this.handleChangeToUserLikes = this.handleChangeToUserLikes.bind(this);
       // this.handleFollowBlog = this.handleFollowBlog.bind(this);
       // this.handleUnfollowBlog = this.handleUnfollowBlog.bind(this);
       // this.handleReplyOnClick = this.handleReplyOnClick.bind(this);
@@ -49,7 +49,7 @@ componentDidMount() {
     this.setState({isExploreCurrent: true});
     //this.getFollowedBlogIds();
     this.retriveProfileData();
-    this.handleChangeToPosts();
+    this.getPostsByUser();
     console.log(this.state.tiles + 'state in profile')
   }
 
@@ -85,7 +85,7 @@ retriveProfileData () {
 //Set up method handleChangeToPosts() axios.get the posts they have made,  
 //(starting with the most recent), set them on state
 
-handleChangeToPosts() {
+getPostsByUser() {
   this.setState({subheader: 'Posts'});
   axios.get(`/api/posts/${this.props.match.params.userid}`).then( response => {
     console.log('profile posts results', response.data)
@@ -98,15 +98,15 @@ handleChangeToPosts() {
 //Set up method handleChangeToTrending() axios.get the posts they have made 
 //which have the most “hearts”. Sort from most to least.
 
-// handleChangeToProfileTrending() {
-//   this.setState({subheader: 'Trending'});
-//   axios.get(`/api/get_profile_trending_posts`).then( response => {
-//     console.log('get profile trending posts results', response);
-//     this.setState({profile_trending: response});
-//   }).catch ( response => {
-//     console.log('get profile trending posts results', response);
-//   })
-// }
+getLikesByUser() {
+  this.setState({subheader: 'Likes'});
+  axios.get(`/api/userLikes/${this.props.match.params.userid}`).then( likedPosts => {
+    console.log('get profile trending posts results', likedPosts);
+    //this.setState({profile_trending: response});
+  }).catch ( response => {
+    console.log('get profile trending posts results', response);
+  })
+}
 
 //Set up method handleFollowBlog() axios.post the blog as one of the blogs 
 //you are following
@@ -165,7 +165,7 @@ render(){
             <button>Follow</button><button>Unfollow</button>
             <div className='profile_navs_container'>
               <p className='profile_posts_nav'>Posts</p>
-              <p className='profile_trending_nav'>Loves</p>
+              <p className='profile_trending_nav'>Likes</p>
               <p className='profile_create_new_post_nav'>Create new post</p>
             </div>
           </div>
