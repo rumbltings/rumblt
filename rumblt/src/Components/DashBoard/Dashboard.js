@@ -31,10 +31,11 @@ export class Dashboard extends Component{
                 posts: [],
                 toggleTextPost: false,
                 textInput: '',
-                isDashCurrent: false
+                isDashCurrent: false,
         }
         this.getLoggedUser = this.getLoggedUser.bind(this);
         this.toggleTextInput = this.toggleTextInput.bind(this);
+        this.toggleClose = this.toggleClose.bind(this);
     }
 
     getAllPosts(){
@@ -43,7 +44,9 @@ export class Dashboard extends Component{
         })
     }
 
-   
+   toggleClose(){
+       this.setState({toggleTextPost: false})
+   }
 
     getLoggedUser () {
         if (this.props.authUser === null) {
@@ -101,6 +104,7 @@ export class Dashboard extends Component{
 
                 <div className="dashfeedtop">
 
+                    
                     <div className="profileimage">
                     {/* <img src={this.state.dummyUser.profileImage} alt=""/> */}
                     <img className="profileimage" src={this.state.currentuser.userimg} alt=""/>
@@ -108,6 +112,15 @@ export class Dashboard extends Component{
 
                 <div id="createnew">
 
+                    {this.state.toggleTextPost ? 
+                    <div id="textpostwrapper">
+                    <TextPost toggleClose={this.toggleClose}/>
+                    </div>
+                    
+                    :
+                    null
+                }
+                <div id={this.state.toggleTextPost ? "nodisplay" : "createnewwrapper"}>
                     <div id="text" onClick={this.toggleTextInput}>
                     <InsertText />
                     <div className="atitle">
@@ -115,11 +128,6 @@ export class Dashboard extends Component{
                     </div>
                     </div>
 
-                    {this.state.toggleTextPost ? 
-                    <TextPost/>
-                    :
-                    null
-                    }
                 
                     
                     
@@ -166,6 +174,9 @@ export class Dashboard extends Component{
                     </div>
 
                 </div>
+
+                    </div>
+                {/* end */}
                 </div>
 
                     {/* <div className="feed" key={posts}> */}

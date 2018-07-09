@@ -1,1 +1,1 @@
-select * from posts cross join users;
+select * from posts a left join users b on a.userid = b.userid

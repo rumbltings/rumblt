@@ -38,19 +38,24 @@ export class TextPost extends Component {
         return (
             <div className = 'text-input'>
 
-                <input
+                <textarea
+                id='inputone'
                 value={this.state.textInput}
                 onChange={this.handleTextChange}
                 type='text'
                 placeholder='Whatcha thinkin about?'
                 />
                  <input
+                 id='inputtwo'
                 value={this.state.tagInput}
                 onChange={this.handleTagChange}
                 type='text'
                 placeholder='add some tags!'
                 />
-                <button onClick={this.sendText} >go</button>
+                <div className="buttonwrapper">
+                <button onClick={()=>{this.sendText(), this.props.toggleClose()}} >Post</button>
+                <button onClick={()=>this.props.toggleClose()}>Close</button>
+                </div>
                 
             </div>
         )
