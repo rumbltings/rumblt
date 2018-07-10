@@ -23,18 +23,15 @@ export class Profile extends Component{
 
     this.state = {
       isExploreCurrent: false,
-      pic: 'x',
-      username: '',
-      blogtitle: '',
-      subheader: '',
-      followed_blogs: [],
-      tiles: [],
-      profile_trending: []
+      profile_pic: default_profile_img,
+      blog_title: 'blog title',
+      user_id: '',
+      subheader: 'Posts'
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       // this.getFollowedBlogIds = this.getFollowedBlogIds.bind(this);
-       this.getPostsByUser = this.getPostsByUser.bind(this);
-      this.handleChangeToUserLikes = this.handleChangeToUserLikes.bind(this);
+      this.getPostsByUser = this.getPostsByUser.bind(this);
+      // this.handleChangeToUserLikes = this.handleChangeToUserLikes.bind(this);
       // this.handleFollowBlog = this.handleFollowBlog.bind(this);
       // this.handleUnfollowBlog = this.handleUnfollowBlog.bind(this);
       // this.handleReplyOnClick = this.handleReplyOnClick.bind(this);
@@ -61,11 +58,22 @@ componentWillUnmount(){
 
 retriveProfileData () {
   axios.get(`/api/users/${this.props.match.params.userid}`).then((res) => {
-    console.log(res.data);
-    this.setState({pic: res.data[0].userimg,
-      username: res.data[0].username,
-      blogtitle: res.data[0].blogtitle
+    console.log('profile component - retriveProfileData', res.data[0]);
+    this.setState({
+      profile_pic: res.data[0].userimg,
+      blog_title: res.data[0].blogtitle,
+      user_id: res.data[0].userid
     })
+  })
+}
+
+getPostsByUser() {
+  this.setState({subheader: 'Posts'});
+  axios.get(`/api/posts/${this.props.match.params.userid}`).then( response => {
+    console.log('profile posts results', response.data)
+    this.setState({tiles: response.data});
+  }).catch ( response => {
+    console.log('get profile posts error', response);
   })
 }
 
@@ -85,16 +93,6 @@ retriveProfileData () {
 
 //Set up method handleChangeToPosts() axios.get the posts they have made,  
 //(starting with the most recent), set them on state
-
-getPostsByUser() {
-  this.setState({subheader: 'Posts'});
-  axios.get(`/api/posts/${this.props.match.params.userid}`).then( response => {
-    console.log('profile posts results', response.data)
-    this.setState({tiles: response.data});
-  }).catch ( response => {
-    console.log('get profile posts error', response);
-  })
-}
 
 //Set up method handleChangeToTrending() axios.get the posts they have made 
 //which have the most “hearts”. Sort from most to least.
@@ -157,22 +155,27 @@ render(){
         <MainHeader />
         <section className='below_header'>
           <div className='profile_info_and_nav'>
-          { this.state.pic != null ? 
-          <img className='profile_pic' src={this.state.pic} alt='profile pic'/>
-           : 
-          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>
-          }
-            <p className='name_of_blog'>{this.state.blogtitle}</p>
-            <button>Follow</button><button>Unfollow</button>
-            <div className='profile_navs_container'>
-              <p className='profile_posts_nav'>Posts</p>
-              <p className='profile_trending_nav'>Likes</p>
-              <p className='profile_create_new_post_nav'>Create new post</p>
-            </div>
+
+          {this.state.profile_pic != null ? 
+          <img className='profile_pic' src={this.state.profile_pic} alt='profile pic'/> : 
+          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>}
+
+          <p className='name_of_blog'>{this.state.blog_title}</p>
+
+          {this.props.match.params.userid !== this.state.user_id ?
+          <div><button>Follow</button><button>Unfollow</button></div>:
+          null}
+
+          <div className='profile_navs_container'>
+            <p className='profile_posts_nav'>Posts</p>
+            <p className='profile_trending_nav'>Likes</p>
+            <p className='profile_create_new_post_nav'>Create new post</p>
+          </div>
+          
           </div>
           <div className='posts_and_following_list'>
             <div className='profile_posts'>
-              {this.state.tiles.map( obj => {
+              {/* {this.state.tiles.map( obj => {
                 return (
                   <div key={obj.id} className='profile_post_tile'>
                     <div className='pofile_post_tile_header'>
@@ -199,7 +202,7 @@ render(){
                     </div>
                     </div>
                 )
-              })}
+              })} */}
             </div>
             <div className='following_list'>
             <h2>FOLLOWED BLOGS</h2>
