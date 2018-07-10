@@ -60,7 +60,7 @@ class SignUpForm extends Component {
           }).then( () => {
             let {userid, name, username, blogtitle, userimg} = this.state;
             axios.post('/api/newuser/', {userid, name, username, blogtitle, userimg}).then( () => {
-              console.log('user made good si')
+              ('user made good si')
             }).then(() => {window.location.href = '/#/dashboard'})
           })
       })

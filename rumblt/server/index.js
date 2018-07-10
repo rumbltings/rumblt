@@ -40,12 +40,13 @@ app.get('/api/users/', (req, res) => {
 
 
 
+
+
 app.get('/api/randpost/', (req, res)=>{
     const dbInstance = req.app.get('db');
 
     dbInstance.getPost().then(posts=>{
         var num = Math.floor(Math.random()*posts.length)
-        console.log(posts[num])
         res.status(200).send(posts[num])
     }).catch(err=>{
         console.log(err)
@@ -54,9 +55,6 @@ app.get('/api/randpost/', (req, res)=>{
 })
 
 
-// app.post('/api/newuser/', (req, res)=> {
-//     let{userid, name, username, blogtitle} = req.body;
-//     req.app.get('db').addUser([userid, name, username, blogtitle]).then(ok=> {
 
 //go on dashboard
 app.get('/api/posts/' , (req, res)=> {
@@ -138,12 +136,34 @@ app.post('/api/posts/new', (req, res) => {
 })
 
 app.get(`/api/userLikes/:userid`, (req, res) => {
-    req.app.get('db').getUserLikes().then(likedPosts => {
+    let {userid} = req.params;
+    req.app.get('db').getUserLikes([userid]).then(likedPosts => {
         res.status(200).send(likedPosts)
     }).catch(err=> {
         console.log(err);
         res.status(500).send(err)
     })
 })
+
+app.get(`/api/followers/:userid`, (req, res) => {
+    let {userid} = req.params;
+    req.app.get('db').getUserFollowers([userid]).then(followers => {
+        console.log(followers);
+        res.status(200).send(followers)
+    }).catch((err) => {
+        res.status(500).send(err);
+    })
+})
+
+app.post(`/api/newFollower/:userid/:followeduserid`, (req, res) => {
+    let {userid, followeduserid} = req.params;
+    req.app.get('db').addFollowing([userid, followeduserid]).then(ok => {
+        res.sendStatus(200);
+    }).catch((err) => {
+        res.status(500).send(err);
+    })
+}) 
+
+
 
 app.listen(SERVER_PORT, () => {console.log(`listening on ${SERVER_PORT}`)});

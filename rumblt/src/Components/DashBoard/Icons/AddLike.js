@@ -26,7 +26,6 @@ likedPost(){{this.setState({liked: !this.state.liked}).then(console.log(this.pro
 
 
     render(){
-        console.log(this.props.authUser.uid + "I'm a like user!")
         return(
             <div id='addLike'>
       <svg 

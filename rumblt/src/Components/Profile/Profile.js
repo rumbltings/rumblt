@@ -3,6 +3,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import {getUserFollowers} from '../../reducers/following';
 import MainHeader from './../Headers/Main Header/MainHeader';
 import reply from './icons/reply.svg';
 import reblog from './icons/reblog.svg';
@@ -16,7 +17,7 @@ var imgStyle = {
 }
 
 
-export default class Profile extends Component{
+export class Profile extends Component{
   constructor(){
     super();
 
@@ -209,4 +210,12 @@ render(){
     )
   }
 }
+const mapStateToProps = (state) => ({
+  authUser: state.sessionState.authUser,
+  getUserFollowers
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default connect(mapStateToProps)(Profile);
 
