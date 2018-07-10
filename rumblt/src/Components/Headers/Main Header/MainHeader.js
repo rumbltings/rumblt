@@ -60,7 +60,7 @@ export class MainHeader extends Component{
    }
 
    getUsers(){
-    axios.get('/api/users').then(res=>{
+    axios.get('/api/users/').then(res=>{
         this.setState({users: res.data})
     })
    }
