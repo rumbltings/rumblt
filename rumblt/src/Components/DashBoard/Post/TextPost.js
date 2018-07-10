@@ -9,8 +9,8 @@ export class TextPost extends Component {
         this.state = {
             textInput: '',
             tagInput: '',
-            typetext: 'text',
-            typeimg:'img'
+            type: 'text',
+        
         }
         this.handleTagChange = this.handleTagChange.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -26,15 +26,16 @@ export class TextPost extends Component {
     }
 
     sendText () {
-        let {textInput, typetext, tagInput} = this.state;
+        let {textInput, type, tagInput} = this.state;
         let {uid} = this.props.authUser;
-        axios.post('/api/posts/new', {textInput, typetext, tagInput, uid}).then(() => {
+        axios.post('/api/posts/new', {textInput, type, tagInput, uid}).then(() => {
             this.setState({textInput: '', tagInput: ''})
         })
     }
     
 
     render () {
+        
         return (
             <div className = 'text-input'>
 

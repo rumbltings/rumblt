@@ -31,17 +31,17 @@ export class ImgPost extends Component {
     }
 
     sendText () {
-    
+   
         let {imgurl, textInput, type, tagInput} = this.state;
         let {uid} = this.props.authUser;
-        axios.post('/api/posts/new', {textInput, type, tagInput, uid, imgurl}).then(() => {
+        axios.post('/api/posts/new', {type, tagInput, textInput, uid, imgurl}).then(() => {
             this.setState({textInput: '', tagInput: '', imgurl: ''})
         
         })
     }
 
     render() {
-        console.log(this.props)
+        
         return (
             <div className='text-input'>
                 <input

@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 import MainHeader from '../Headers/Main Header/MainHeader'
 import '../Headers/Login Header/LoginHeader.css'
@@ -20,7 +19,7 @@ import InsertChat from './Icons/InsertChat';
 import InsertAudio from './Icons/InsertAudio';
 import InsertVideo from './Icons/InsertVideo';
 import TextPost from './Post/TextPost';
-import { ImgPost } from './Post/ImgPost';
+import ImgPost from './Post/ImgPost';
 
 
 export class Dashboard extends Component{
@@ -185,7 +184,7 @@ export class Dashboard extends Component{
                     {this.state.posts.map((post, i) =>{
                         return (
                             <div className="feed" key={post + i}>
-                                <DashFeed {...post} />
+                                <DashFeed {...post}/>
                             </div>
                         )
                     })}

@@ -100,6 +100,22 @@ app.get('/api/likeCount/:userid', (req, res)=>{
     })
 })
 
+app.post('/api/likes/', (req, res)=> {
+    let{userid, postid} = req.body;
+    req.app.get('db').addLikes([userid, postid]).then(ok => {
+        res.status(200).send("ok")}).catch(err=> {
+            res.status(500).send(err)
+        })
+})
+
+app.delete('/api/likes/:userid/:postid', (req, res)=> {
+    let{userid, postid} = req.params;
+    req.app.get('db').deleteLike([userid, postid]).then(ok => {
+        res.status(200).send("ok")}).catch(err=> {
+            res.status(500).send(err)
+        })
+})
+
 app.get('/api/postCount/:userid', (req, res)=>{
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
@@ -112,8 +128,8 @@ app.get('/api/postCount/:userid', (req, res)=>{
 })
 
 app.post('/api/posts/new', (req, res) => {
-    let {imgurl, textInput, typetext, tagInput, uid} = req.body;
-    req.app.get('db').addPost([typetext, tagInput, textInput, uid, imgurl]).then(ok => {
+    let {imgurl, textInput, type, tagInput, uid} = req.body;
+    req.app.get('db').addPost([type, tagInput, textInput, uid, imgurl]).then(ok => {
         res.status(200).send('ok')
     }).catch(err=> {
         console.log(err);
