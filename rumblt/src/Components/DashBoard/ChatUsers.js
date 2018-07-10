@@ -20,7 +20,6 @@ export default class ChatUsers extends Component{
 componentDidMount(){
     axios.get('/api/users').then(res=>{
         this.setState({users: res.data})
-        console.log(res.data)
     })
 }
 
@@ -29,7 +28,7 @@ componentDidMount(){
             <div>
                 {this.state.users.map(user=>{
                     return(
-                        <div id='cu'>
+                        <div id='cu' key={user.id}>
                             <div id="culeft">
                             <div id="chatimage">
                             <img src={this.state.randomImages[Math.floor(Math.random()* this.state.randomImages.length)]} alt=""/>
