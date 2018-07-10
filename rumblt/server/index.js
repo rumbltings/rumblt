@@ -17,6 +17,7 @@ massive(CONNECTION_STR).then( (db) => {
     app.set('db', db);  
 })
 
+//FOR Dashboard.js AND UserInfo.js AND Profile.js//
 app.get('/api/users/:userid', (req, res) => {
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
@@ -28,6 +29,7 @@ app.get('/api/users/:userid', (req, res) => {
 });
 });
 
+//FOR Dashboard.js//
 app.get('/api/users/', (req, res) => {
     const dbInstance = req.app.get('db');
     dbInstance.getallusers().then(users => {
@@ -38,10 +40,7 @@ app.get('/api/users/', (req, res) => {
     });
 })
 
-
-
-
-
+//FOR RandomPost.js//
 app.get('/api/randpost/', (req, res)=>{
     const dbInstance = req.app.get('db');
 
@@ -54,8 +53,6 @@ app.get('/api/randpost/', (req, res)=>{
 
 })
 
-
-
 //go on dashboard
 app.get('/api/posts/' , (req, res)=> {
 const dbInstance = req.app.get('db');
@@ -65,6 +62,7 @@ dbInstance.getAllPosts().then(posts=> {
     res.status(500).send(err)
 })
 })
+
 //users profile
 app.get('/api/posts/:userid', (req, res)=> {
     const userid = req.params.userid;
@@ -76,17 +74,7 @@ app.get('/api/posts/:userid', (req, res)=> {
     })
 })
 
-app.post('/api/newuser/', (req, res)=> {
-    let{userid, name, username, blogtitle, userimg} = req.body;
-    req.app.get('db').addUser([userid, name, username, blogtitle, userimg]).then(ok=> {
-        res.sendStatus(200);
-    }).catch(err=> {
-        console.log(err);
-        res.status(500).send(err)
-    })
-})
-
-
+//FOR MainHeader.js//
 app.get('/api/likeCount/:userid', (req, res)=>{
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
@@ -98,6 +86,7 @@ app.get('/api/likeCount/:userid', (req, res)=>{
     })
 })
 
+//FOR DashFeed.js//
 app.post('/api/likes/', (req, res)=> {
     let{userid, postid} = req.body;
     req.app.get('db').addLikes([userid, postid]).then(ok => {
@@ -106,6 +95,7 @@ app.post('/api/likes/', (req, res)=> {
         })
 })
 
+//Kind of matches an endpoint in DashFeed.js, but not completely//
 app.delete('/api/likes/:userid/:postid', (req, res)=> {
     let{userid, postid} = req.params;
     req.app.get('db').deleteLike([userid, postid]).then(ok => {
@@ -114,6 +104,7 @@ app.delete('/api/likes/:userid/:postid', (req, res)=> {
         })
 })
 
+//FOR MainHeader.js//
 app.get('/api/postCount/:userid', (req, res)=>{
     const userid = req.params.userid;
     const dbInstance = req.app.get('db');
@@ -125,6 +116,7 @@ app.get('/api/postCount/:userid', (req, res)=>{
     })
 })
 
+//FOR ImgPost.js AND TextPost.js//
 app.post('/api/posts/new', (req, res) => {
     let {imgurl, textInput, type, tagInput, uid} = req.body;
     req.app.get('db').addPost([type, tagInput, textInput, uid, imgurl]).then(ok => {
@@ -135,6 +127,7 @@ app.post('/api/posts/new', (req, res) => {
     })
 })
 
+//FOR DashFeed.js//
 app.get(`/api/userLikes/:userid`, (req, res) => {
     let {userid} = req.params;
     req.app.get('db').getUserLikes([userid]).then(likedPosts => {
@@ -143,6 +136,19 @@ app.get(`/api/userLikes/:userid`, (req, res) => {
         console.log(err);
         res.status(500).send(err)
     })
+})
+
+//FOR Profile.js//
+
+
+app.post('/api/newuser/', (req, res)=> {
+  let{userid, name, username, blogtitle, userimg} = req.body;
+  req.app.get('db').addUser([userid, name, username, blogtitle, userimg]).then(ok=> {
+      res.sendStatus(200);
+  }).catch(err=> {
+      console.log(err);
+      res.status(500).send(err)
+  })
 })
 
 app.get(`/api/followers/:userid`, (req, res) => {
