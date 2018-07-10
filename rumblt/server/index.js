@@ -154,7 +154,6 @@ app.post('/api/newuser/', (req, res)=> {
 app.get(`/api/followers/:userid`, (req, res) => {
     let {userid} = req.params;
     req.app.get('db').getUserFollowers([userid]).then(followers => {
-        console.log(followers);
         res.status(200).send(followers)
     }).catch((err) => {
         res.status(500).send(err);
@@ -166,6 +165,7 @@ app.post(`/api/newFollower/:userid/:followeduserid`, (req, res) => {
     req.app.get('db').addFollowing([userid, followeduserid]).then(ok => {
         res.sendStatus(200);
     }).catch((err) => {
+        console.log(err);
         res.status(500).send(err);
     })
 }) 
