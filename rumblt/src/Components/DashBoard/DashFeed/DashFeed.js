@@ -19,7 +19,18 @@ import axios from 'axios';
     }
 
     componentDidMount(){
+        this.getUserLikes();
+    }
 
+    getUserLikes() {
+        let userid = this.props.authUser.uid;
+        axios.get('/api/userLikes/' + userid).then((likesResponse) => {
+            likesResponse.data.map((el, i) => {
+                if (el.userid == userid && el.postid == this.props.id) {
+                    this.setState({liked: true})
+                }
+            })
+        })
     }
 
     like(){
@@ -39,7 +50,6 @@ import axios from 'axios';
     }
 
     render(){
-        console.log(this.props.content)
         return(
            
             <div id='maindashfeed'>

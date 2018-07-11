@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import './MainHeader.css'
 import compass from './icons/compass.svg'
 import home from './icons/home.svg';
@@ -23,7 +24,7 @@ import ChatModal from './Sub Components/ChatModal/ChatModal';
 
 
 
-export default class MainHeader extends Component{
+export class MainHeader extends Component{
     constructor(){
         super()
         this.state={
@@ -44,7 +45,7 @@ export default class MainHeader extends Component{
     }
 
    getLikeCount(){
-        axios.get(`/api/likeCount/${this.props.currentuser.userid}`).then(res=>{
+        axios.get(`/api/likeCount/${this.props.authUser.uid}`).then(res=>{
             let cc = res.data[0]
             this.setState({likeCount: cc.count})
             
@@ -52,15 +53,14 @@ export default class MainHeader extends Component{
    }
    
    getPostCount(){
-        axios.get(`/api/postCount/${this.props.currentuser.userid}`).then(res=>{
+        axios.get(`/api/postCount/${this.props.authUser.uid}`).then(res=>{
             let pc = res.data[0]
             this.setState({postCount: pc.count})
-            console.log('AHHHH', this.props, pc.count)
         })
    }
 
    getUsers(){
-    axios.get('/api/users').then(res=>{
+    axios.get('/api/users/').then(res=>{
         this.setState({users: res.data})
     })
    }
@@ -138,3 +138,10 @@ export default class MainHeader extends Component{
         )
     }
 }
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser
+});
+
+const authCondition = (authUser) => !!authUser;
+
+export default connect(mapStateToProps)(MainHeader);

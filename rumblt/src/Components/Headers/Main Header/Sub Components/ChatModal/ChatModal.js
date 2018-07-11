@@ -4,7 +4,6 @@ import './ChatModal.css'
 
 export default function ChatModal(props){
     
-    console.log('!!!',props)
 
     return(
         <div id='cmmain'>
@@ -12,7 +11,7 @@ export default function ChatModal(props){
                 <div className="cmhleft">
 
                     <div className="cmimg">
-                        <img src={props.currentuser.userimg ? props.currentuser.userimg : 'https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_500.png'} alt=""/>
+                        <img src='https://refsheet.net/assets/default.png' alt=""/>
                     </div>
 
                     <div className="cmusername">
@@ -35,7 +34,7 @@ export default function ChatModal(props){
             <div className="cmpeople">
             {props.users.map(user=>{
                 return(
-                    <div id='cmpeoplecontainer'>
+                    <div id='cmpeoplecontainer' key={user.id}>
                         <div className="peopleimg">
                         <img src={user.userimg !== null ? user.userimg : 'https://78.media.tumblr.com/004fac2f3b9691a47941d0710496bfff/tumblr_o51oavbMDx1ugpbmuo9_540.png'} alt=""/>
                         </div>
