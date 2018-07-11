@@ -76,7 +76,9 @@
 }
 
 #modals{
-    margin-right: 40px;
+    padding-top: 55px;
+    width: 100vw;
+    padding-right: 40px;
     display: flex;
     justify-content: flex-end;
 }
@@ -92,6 +94,7 @@
 
 .chatmod{
     width: 300px;
+    margin-right: 50px;
     height: 330px;
     overflow: hidden;
     transition: .75s ease height, 1s ease width;
