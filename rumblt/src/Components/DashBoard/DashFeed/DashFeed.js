@@ -21,7 +21,18 @@ import axios from 'axios';
 
     componentDidMount(){
         this.numberWithCommas();
+        this.getUserLikes();
+    }
 
+    getUserLikes() {
+        let userid = this.props.authUser.uid;
+        axios.get('/api/userLikes/' + userid).then((likesResponse) => {
+            likesResponse.data.map((el, i) => {
+                if (el.userid == userid && el.postid == this.props.id) {
+                    this.setState({liked: true})
+                }
+            })
+        })
     }
 
     like(){

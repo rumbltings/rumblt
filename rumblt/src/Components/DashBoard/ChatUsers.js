@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {connect} from 'react-redux';
 import './ChatUsers.css'
 import AddChat from './Icons/AddChat'
 
-export default class ChatUsers extends Component{
+export class ChatUsers extends Component{
     constructor(){
         super()
 
@@ -18,18 +19,31 @@ export default class ChatUsers extends Component{
         }
     }
 componentDidMount(){
-    axios.get('/api/users').then(res=>{
-        this.setState({users: res.data})
-        console.log(res.data)
+    let followersArr = [];
+    axios.get(`/api/followers/${this.props.authUser.uid}`).then(res=>{
+        let followerIDArray = res.data;
+        followerIDArray.map(el =>{
+            axios.get(`/api/users/${el.followeduserid}`).then((res) => {
+                let follower = res.data[0];
+                followersArr.push(follower);
+            }).then(() => {
+                this.setState({users: followersArr})
+            })
+        })
     })
+}
+
+followUser() {
+    axios.post(`/api/newFollower/${this.props.authUser.uid}/:followeduserid`)
 }
 
     render(){
         return(
             <div>
                 {this.state.users.map(user=>{
+                    let followuserid = user.userid;
                     return(
-                        <div id='cu'>
+                        <div id='cu' key={user.id}>
                             <div id="culeft">
                             <div id="chatimage">
                             <img src={this.state.randomImages[Math.floor(Math.random()* this.state.randomImages.length)]} alt=""/>
@@ -55,3 +69,10 @@ componentDidMount(){
         )
     }
 }
+
+const mapStateToProps = (state) => ({
+    authUser: state.sessionState.authUser
+});
+
+const authCondition = (authUser) => !!authUser;
+export default connect(mapStateToProps)(ChatUsers);

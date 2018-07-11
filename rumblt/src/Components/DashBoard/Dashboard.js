@@ -20,7 +20,7 @@ import InsertAudio from './Icons/InsertAudio';
 import InsertVideo from './Icons/InsertVideo';
 import TextPost from './Post/TextPost';
 import ImgPost from './Post/ImgPost';
-
+import {getUserFollowers} from '../../reducers/following';
 
 export class Dashboard extends Component{
 
@@ -44,6 +44,7 @@ export class Dashboard extends Component{
         axios.get('/api/posts/').then((posts)=> {
             this.setState({posts:posts.data})
         })
+        console.log(this.props);
     }
 
    toggleClose(){
@@ -69,6 +70,7 @@ export class Dashboard extends Component{
     componentWillMount(){
         this.getLoggedUser();
     }
+
     componentDidMount(){
         console.log('Auth User', this.props.authUser);
         document.body.background = '#36465d';
@@ -77,6 +79,11 @@ export class Dashboard extends Component{
         this.getLoggedUser();
         this.getAllUsers(); 
         this.getAllPosts();
+        let followers = this.props.getUserFollowers(this.props.authUser.uid);
+        let {payload} = followers;
+        payload.then((res) => {
+            console.log(res)
+        })
     }
     
     componentWillUnmount(){
@@ -235,7 +242,8 @@ export class Dashboard extends Component{
 }
 
 const mapStateToProps = (state) => ({
-    authUser: state.sessionState.authUser
+    authUser: state.sessionState.authUser,
+    getUserFollowers
 });
 
 const authCondition = (authUser) => !!authUser;

@@ -43,7 +43,7 @@ class SignInForm extends Component {
        if(u.user.uid){
         window.location.href = "/#/dashboard"
        } else {
-         console.log('nope.')
+         null
        }
       })
       .catch(error => {
