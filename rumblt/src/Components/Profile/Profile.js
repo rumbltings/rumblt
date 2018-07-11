@@ -26,15 +26,16 @@ export class Profile extends Component{
       profile_pic: default_profile_img,
       blog_title: 'blog title',
       user_id: '',
+      posts: [],
+      followed_info: [],
       subheader: 'Posts'
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
-      // this.getFollowedBlogIds = this.getFollowedBlogIds.bind(this);
       this.getPostsByUser = this.getPostsByUser.bind(this);
+      this.getFollowedBlogInfo = this.getFollowedBlogInfo.bind(this);
       // this.handleChangeToUserLikes = this.handleChangeToUserLikes.bind(this);
       // this.handleFollowBlog = this.handleFollowBlog.bind(this);
       // this.handleUnfollowBlog = this.handleUnfollowBlog.bind(this);
-      // this.handleReplyOnClick = this.handleReplyOnClick.bind(this);
       // this.handleReblogOnClick = this.handleReblogOnClick.bind(this);
       // this.handleLoveOnClick = this.handleLoveOnClick.bind(this);
     }
@@ -45,9 +46,9 @@ export class Profile extends Component{
 componentDidMount() {
     document.body.background = '#36465d';
     this.setState({isExploreCurrent: true});
-    //this.getFollowedBlogIds();
     this.retriveProfileData();
     this.getPostsByUser();
+    this.getFollowedBlogInfo();
     console.log(this.state.tiles + 'state in profile')
   }
 
@@ -71,25 +72,24 @@ getPostsByUser() {
   this.setState({subheader: 'Posts'});
   axios.get(`/api/posts/${this.props.match.params.userid}`).then( response => {
     console.log('profile posts results', response.data)
-    this.setState({tiles: response.data});
+    this.setState({posts: response.data});
   }).catch ( response => {
     console.log('get profile posts error', response);
   })
 }
 
-//When this function is invoked, get the ids of the blogs that are followed
+//When this function is invoked, get the user info of the blogs that are followed
 //and set that info on state
-
-// getFollowedBlogIds() {
-//   axios.get(`/api/get_ids_of_blogs_followed`).then( response => {
-//     console.log('get ids of blogs followed results', response);
-//     this.setState({
-//       followed_blogs: response
-//     })
-//   }).catch( response => {
-//     console.log('get ids of blogs followed error', response);
-//   })
-// }
+getFollowedBlogInfo() {
+  axios.get(`/api/get_blogs_followed_info/${this.props.match.params.userid}`).then( response => {
+    console.log('get blogs followed info results', response.data);
+    this.setState({
+      followed_info: response.data
+    })
+  }).catch( response => {
+    console.log('get blogs followed info error', response);
+  })
+}
 
 //Set up method handleChangeToPosts() axios.get the posts they have made,  
 //(starting with the most recent), set them on state
@@ -140,9 +140,6 @@ getLikesByUser() {
 //   })
 // }
 
-//Set up handleReplyOnClick() 
-handleReplyOnClick() {}
-
 
 
 //Set up handleLoveOnClick()
@@ -167,7 +164,7 @@ render(){
           null}
 
           <div className='profile_navs_container'>
-            <p className='profile_posts_nav'>Posts</p>
+            <p className='profile_posts_nav' onClick={this.getPostsByUser}>Posts</p>
             <p className='profile_trending_nav'>Likes</p>
             <p className='profile_create_new_post_nav'>Create new post</p>
           </div>
@@ -175,34 +172,25 @@ render(){
           </div>
           <div className='posts_and_following_list'>
             <div className='profile_posts'>
-              {/* {this.state.tiles.map( obj => {
+              {this.state.posts.map( obj => {
                 return (
-                  <div key={obj.id} className='profile_post_tile'>
-                    <div className='pofile_post_tile_header'>
-                      <img className='profile_pic' src={this.state.pic} alt='profile post blogger pic'/>
-                      <p className='profile_post_blogger_username'>{this.state.username}</p>
-                    </div>
-
+                  <div key={obj.id} className='profile_post'>
                     <div className='profile_post_content_container'>
-                      <img className='postcontentimg' src='' alt='profile post content' />
-                      <p className='profile_post_text'>Profile Post Text</p>
-                    </div>
-
-                    <div className='profile_post_comment_container'>
-                      <p className='profile_post_comment'>profile post comment</p>
+                      {obj.type === 'img' ? 
+                      <img className='postcontentimg' src={obj.img} alt='profile post content' /> : 
+                      <p className='postcontenttext'>{obj.content}</p>}
                     </div>
 
                     <div className='profile_post_footer'>
-                      <p className='number_of_replies'>Number of replies</p>
+                      <p className='number_of_likes'>Number of likes</p>
                       <div className='profile_post_actions_container'>
-                        <img className='profile_post_action_reply' src={reply} alt='Reply Icon' style={imgStyle} />
                         <img className='profile_post_action_reblog' src={reblog} alt='Reblog Icon' style={imgStyle} />
                         <img className='profile_post_action_love' src={love} alt='Love Icon' style={imgStyle} />
                       </div>
                     </div>
                     </div>
                 )
-              })} */}
+              })}
             </div>
             <div className='following_list'>
             <h2>FOLLOWED BLOGS</h2>
