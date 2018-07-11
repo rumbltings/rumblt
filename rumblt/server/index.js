@@ -74,6 +74,17 @@ app.get('/api/posts/:userid', (req, res)=> {
     })
 })
 
+//FOR Profile.js//
+app.get(`/api/get_blogs_followed_info/:userid`, (req, res) => {
+  const userid = req.params.userid;
+  const dbInstance = req.app.get('db');
+  dbInstance.getBlogsFollowedInfo(userid).then( followingInfo => {
+    res.status(200).send(followingInfo)
+  }).catch( err => {
+    res.status(500).send(err);
+  })
+})
+
 //FOR MainHeader.js//
 app.get('/api/likeCount/:userid', (req, res)=>{
     const userid = req.params.userid;
