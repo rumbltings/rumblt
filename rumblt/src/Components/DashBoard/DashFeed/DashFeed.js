@@ -13,12 +13,14 @@ import axios from 'axios';
         this.state={
             randomImg: ['https://78.media.tumblr.com/7d376efd024eadd902a8bb60c8155c94/tumblr_o51oavbMDx1ugpbmuo4_540.png', 'https://78.media.tumblr.com/004fac2f3b9691a47941d0710496bfff/tumblr_o51oavbMDx1ugpbmuo9_540.png', 'https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_540.png', 'https://78.media.tumblr.com/2060fe62b7ed3b46e5789356942a305e/tumblr_o51oavbMDx1ugpbmuo2_540.png'],
             liked: false,
-            likedPost: ''
+            likedPost: '',
+            likenum: 0
         }
         this.like = this.like.bind(this);
     }
 
     componentDidMount(){
+        this.numberWithCommas();
 
     }
 
@@ -27,19 +29,29 @@ import axios from 'axios';
         let postid = this.props.id
         if(this.state.liked === false){
             axios.post('/api/likes/', {userid, postid}).then(
-                this.setState({liked: !this.state.liked})
+                this.setState({liked: !this.state.liked,
+                    likenum: this.state.likenum+1
+                })
             )
         }
         else {
             axios.delete(`/api/likes/${userid}/${postid}`,).then(
-                this.setState({liked: !this.state.liked})
+                this.setState({liked: !this.state.liked,
+                    likenum: this.state.likenum-1})
                 
             )
         }
+
+    }
+
+    numberWithCommas(){
+        const num = Math.floor(Math.random()*10000);
+        var commaNum = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        this.setState({likenum: num})
     }
 
     render(){
-        console.log(this.props.content)
+        // console.log('props cont',this.props)
         return(
            
             <div id='maindashfeed'>
@@ -52,23 +64,28 @@ import axios from 'axios';
 
                 <div className="postdisplay">
                 <div className="pdheader">
-                {/* {this.props.posterName} */}
+                {this.props.username}
                 </div>
                 {this.props.type === 'img' ?
                 <div className="pdcontent">
                 <img src={this.props.img} alt=""/>
                 </div>
                 :
-                <div>
+                <div className='pdtext'>
                 <p>{this.props.content}</p>
                 </div>
                 }
                 <div className="pdfooter">
                 <div className="desc">
-                {/* {this.props.postCaption} */}
+                {this.props.tag === null || this.props.tag === '' ? '#hashtag' :
+                `#${this.props.tag}`
+            }
                 </div>
                 <div className="footerfooter">
-                {/* <AddLike currentPost={this.props.id}/> */}
+                <div className="notes">
+                {`${this.state.likenum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} notes`}
+                </div>
+                <div id="fficons">
                 <div id='addLike'>
                 <svg 
                 id="footicon" 
@@ -82,9 +99,6 @@ import axios from 'axios';
                 />
                 </svg>
                 </div>
-                <div className="notes">
-                {/* {`${this.props.notes} notes`} */}
-               
                 </div>
                 </div>
                 </div>
