@@ -50,6 +50,7 @@ export class Dashboard extends Component{
    toggleClose(){
        this.setState({toggleTextPost: false})
        this.setState({toggleImgPost: false})
+       this.getAllPosts();
    }
 
     getLoggedUser () {
