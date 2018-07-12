@@ -28,7 +28,10 @@ export class Profile extends Component{
       user_id: '',
       posts: [],
       like_ids: [],
-      subheader: 'Posts'
+      subheader: 'Posts',
+      headerImage: '',
+      username: 'username',
+      name:'name'
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       this.getPostsByUser = this.getPostsByUser.bind(this);
@@ -49,6 +52,7 @@ componentDidMount() {
     this.getPostsByUser();
     // this.getFollowedBlogInfo();
     this.getLikeIds();
+    this.getHeaderImg();
     // console.log(this.state.tiles + 'state in profile')
   }
 
@@ -59,11 +63,13 @@ componentWillUnmount(){
 
 retriveProfileData () {
   axios.get(`/api/users/${this.props.match.params.userid}`).then((res) => {
-    // console.log('profile component - retriveProfileData', res.data[0]);
+    console.log('profile component - retriveProfileData', res.data[0]);
     this.setState({
       profile_pic: res.data[0].userimg,
       blog_title: res.data[0].blogtitle,
-      user_id: res.data[0].userid
+      user_id: res.data[0].userid,
+      username: res.data[0].username,
+      name: res.data[0].name
     })
   })
 }
@@ -76,6 +82,14 @@ getPostsByUser() {
   }).catch ( response => {
     console.log('get profile posts error', response);
   })
+}
+
+getHeaderImg(){
+  var images = ['https://media.giphy.com/media/leaEbNXAEY0rm/giphy.gif', 'https://i.imgur.com/nbhzCHk.gif', 'https://media.giphy.com/media/wGY9K8upRdJFm/giphy.gif','http://community.wolfram.com//c/portal/getImageAttachment?filename=vgrid17c.gif&userId=610054','https://s.tmimgcdn.com/blog/wp-content/uploads/2017/07/5963490e3d940026220505.gif?x54449', ];
+
+  var image= images[Math.floor(Math.random()*images.length)]
+this.setState({headerImage: image})
+  
 }
 
 getLikeIds() {
@@ -135,23 +149,36 @@ handlePostUnlikeOnClick(userid, postid) {
 
 render(){
   return(
-      <div>
+      <div id='profileMain'>
+      <div id="headerdiv">
         <MainHeader />
+      </div>
         <section className='below_header'>
+        <div id="headerimgcontainer">
+        <img id='headerImg' src={this.state.headerImage} alt=""/>
+        </div>
           <div className='profile_info_and_nav'>
 
+          <div className="profpiccontainer">
           {this.state.profile_pic != null ? 
-          <img className='profile_pic' src={this.state.profile_pic} alt='profile pic'/> : 
-          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>}
 
-          <p className='name_of_blog'>{this.state.blog_title}</p>
+<img className='profile_pic' src={this.state.profile_pic} alt='profile pic'/> : 
+          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>}
+          </div>
+
+<div className="profileuserinfo">
+<ul>
+          <h1  className='name_of_blog'>{this.state.username}</h1>
+          <h3>{this.state.blog_title}</h3>
+</ul>
+</div>
 
           <div className='profile_navs_container'>
-            <p className='profile_posts_nav' onClick={this.getPostsByUser}>Posts</p>
-            <p className='profile_trending_nav' onClick={this.handleChangeToLikes}>Likes</p>
-            <Link to='/dashboard'>
-              <p className='profile_create_new_post_nav'>Create new post</p>
-            </Link>
+            <p className='profile_posts_nav ppn' onClick={this.getPostsByUser}>Posts</p>
+            <p className='profile_trending_nav ppn' onClick={this.handleChangeToLikes}>Likes</p>
+            {/* <Link to='/dashboard'>
+              <p className='profile_create_new_post_nav ppn'>Create new post</p>
+            </Link> */}
           </div>
           
           </div>
