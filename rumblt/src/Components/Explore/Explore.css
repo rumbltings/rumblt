@@ -1,6 +1,6 @@
 #exploremain{
     background: #36465d;
-    height: auto;
+    padding-bottom: 100px;
     min-height: 100vh;
     
   }
@@ -11,23 +11,6 @@
     justify-content: center;
     padding-left: 10vw;
     padding-right: 10vw;
-}
-
-
-.subheader{
-  background: #36465d;
-  width: 100vw;
-  border-top: 1px white solid;
-  border-bottom: 1px white solid;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  font: 12px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
-  color:  rgba(255, 255, 255, 0.781);
-  font-weight: 700;
-  font: bold;
-  position: fixed;
-  z-index: 100;
 }
 
 .categories{
@@ -46,27 +29,35 @@
   float: right;
   margin-left: 10px;
 }
-/* 
-#exploreposts{
-  background: gainsboro;
-  width: 95vw;
-  display: flex; 
- flex-direction: column-reverse; 
-  flex-wrap: wrap-reverse;
-  max-height: 200vw;
-} */
 
-#exploreposts #eppost{
+#exploreposts{
+  width: auto;
+  max-width: 950px;
+  /* display: flex; 
+ flex-direction: row; 
+  flex-wrap: wrap; */
+}
+
+/* #exploreposts #eppost{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  flex-flow: column wrap;
-  float: right;
+  flex-flow: row wrap;
   
-}
+} */
+
+/* .grid-item { width: 300px; */
+/* margin: 5px;  */
+/* } */
+/* .grid-item--width2 { width: 400px; } */
 
 .dpcontent img{
 width: 300px;
 height: auto;
+}
+
+footer{
+  height: 150px;
+  background: #36465d;
 }
 
