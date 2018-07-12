@@ -35,7 +35,7 @@ export default class RandomPost extends Component{
                 <div className='radar'>
                     RADAR
                 </div>
-                <div id="rpheader">
+                <div id="rpheader" onClick={() => {window.location.href=`http://localhost:3000/#/profile/${t.userid}`}}>
                 <div className="rpright">
                 <div id='rpimage'>
                    {t.userimg === null ? <img src='https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_540.png' alt=""/> : <img src={t.userimg} alt=""/>}

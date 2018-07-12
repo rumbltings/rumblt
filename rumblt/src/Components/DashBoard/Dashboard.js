@@ -226,7 +226,7 @@ export class Dashboard extends Component{
 
                 <div id="dashright">
                     <div id="chatheader">
-                    RECOMMENDED CHAT
+                    FOLLOWING
                     </div>
                     <div id='dashchat'>
                     <div id='chatusercontainer'>
