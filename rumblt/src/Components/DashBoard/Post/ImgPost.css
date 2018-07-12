@@ -32,3 +32,13 @@
     justify-content: space-between;
     
 }
+
+.buttonwrapper button{
+    border-style: none;
+    width: 73px;
+    height: 20px;
+    font-weight: bold;
+    background: lightslategray;
+    color: whitesmoke;
+    border-radius: 3px;
+}
