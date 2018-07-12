@@ -74,6 +74,28 @@ app.get('/api/posts/:userid', (req, res)=> {
     })
 })
 
+//FOR Profile.js//
+// app.get(`/api/get_blogs_followed_info/:userid`, (req, res) => {
+//   const userid = req.params.userid;
+//   const dbInstance = req.app.get('db');
+//   dbInstance.getBlogsFollowedInfo(userid).then( followingInfo => {
+//     res.status(200).send(followingInfo)
+//   }).catch( err => {
+//     res.status(500).send(err);
+//   })
+// })
+
+//FOR Profile.js//
+app.get(`/api/get_like_ids/:userid`, (req, res) => {
+  const userid = req.params.userid;
+  const dbInstance = req.app.get('db');
+  dbInstance.getLikeIds(userid).then( likeIds => {
+    res.status(200).send(likeIds);
+  }).catch( err => {
+    res.status(500).send(err);
+  })
+})
+
 //FOR MainHeader.js//
 app.get('/api/likeCount/:userid', (req, res)=>{
     const userid = req.params.userid;
@@ -86,7 +108,7 @@ app.get('/api/likeCount/:userid', (req, res)=>{
     })
 })
 
-//FOR DashFeed.js//
+//FOR DashFeed.js AND Profile.js//
 app.post('/api/likes/', (req, res)=> {
     let{userid, postid} = req.body;
     req.app.get('db').addLikes([userid, postid]).then(ok => {
@@ -139,7 +161,15 @@ app.get(`/api/userLikes/:userid`, (req, res) => {
 })
 
 //FOR Profile.js//
-
+app.get(`/api/get_profile_user_likes/:userid`, (req, res) => {
+  let {userid} = req.params;
+  req.app.get('db').getProfileUserLikes([userid]).then(likedPosts => {
+      res.status(200).send(likedPosts)
+  }).catch(err=> {
+      console.log(err);
+      res.status(500).send(err)
+  })
+})
 
 app.post('/api/newuser/', (req, res)=> {
   let{userid, name, username, blogtitle, userimg} = req.body;
