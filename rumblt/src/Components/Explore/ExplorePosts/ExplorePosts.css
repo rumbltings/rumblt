@@ -2,16 +2,36 @@
     background: white;
     width: 300px;
     border-radius: 4px;
-    margin: 5px;
     display: flex; 
     flex-direction: column; 
     flex-wrap: wrap;
-    font-size: 0; 
     overflow: hidden;
+}
+
+.dphimg{
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin-right: 15px;
+}
+.dphimg img{
+    height: 30px;
+    width: 30px;
 }
 
 .dpheader{
     height: 60px;
+    padding: 0 10px 0 10px;
+    display: flex;
+    align-items: center;
+    font: 14px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 700;
+}
+
+.dphfollow{
+    margin-left: 10px;
+    color: #529ecc;
 }
 
 .dpcontent{
@@ -20,4 +40,12 @@
 
 .dpfooter{
     height: 60px;
+    padding: 0 10px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dpficons{
+    display: flex;
 }

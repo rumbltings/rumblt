@@ -125,6 +125,16 @@ export class MainHeader extends Component{
             </div>
 
             <div id="modals">
+            {this.props.isExploreCurrent ? 
+            <section className='subheader'>
+              <div className="categories">
+                <p className='trending' onClick={this.handleChangeToTrending}>Trending</p>
+                <p className='staff_picks' onClick={this.handleChangeToStaffPicks}>Staff Picks</p>
+                <p className='text' onClick={this.handleChangeToText}>Text</p>
+                <p className='photos' onClick={this.handleChangeToPhotos}>Photos</p>
+              </div>
+              </section>
+        : null}
             <div className={this.state.profileActive ? 'userinfomod' : 'userinfomod hidemodal'}>
             <UserInfo currentuser={this.props.currentuser} postCount={this.state.postCount} likeCount={this.state.likeCount}/>
             </div>
@@ -134,6 +144,7 @@ export class MainHeader extends Component{
             </div>
 
             </div>
+           
                     </div>
         )
     }
