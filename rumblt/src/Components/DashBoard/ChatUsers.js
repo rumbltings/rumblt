@@ -37,7 +37,7 @@ followUser() {
                 {this.state.users.map(user=>{
                     let followuserid = user.userid;
                     return(
-                        <div id='cu' key={user.id}>
+                        <div id='cu' key={user.id} onClick={() => {window.location.href=`http://localhost:3000/#/profile/${user.userid}`}}>
                             <div id="culeft">
                             <div id="chatimage">
                             <img src={user.userimg} alt=""/>

@@ -1,4 +1,4 @@
-.text-input{
+.img-input{
     background: white;
     width: 538px;
     min-height: 283px;
@@ -30,15 +30,5 @@
     margin-top: 15px;
     display: flex;
     justify-content: space-between;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.buttonwrapper button{
-    border-style: none;
-    width: 73px;
-    height: 20px;
-    font-weight: bold;
-    background: lightslategray;
-    color: whitesmoke;
-    border-radius: 3px;
+    
 }

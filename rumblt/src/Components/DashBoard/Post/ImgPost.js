@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import './TextPost.css';
+import './ImgPost.css';
 
 export class ImgPost extends Component {
     constructor() {
@@ -43,14 +43,16 @@ export class ImgPost extends Component {
     render() {
         
         return (
-            <div className='text-input'>
+            <div className='img-input'>
                 <input
+                id='inputtwo'
                 value={this.state.imgurl}
                 onChange={this.handleUrlChange}
                 type='text'
                 placeholder='image url'
                 />
-                 <input
+                 <textarea
+                id='inputone'
                 value={this.state.textInput}
                 onChange={this.handleTextChange}
                 type='text'
@@ -62,7 +64,7 @@ export class ImgPost extends Component {
                 type='text'
                 placeholder='add some tags!'
                 />
-             <button onClick={this.sendText} >go</button>
+             <button className="buttonwrapper" onClick={this.sendText} >go</button>
 
             </div>
         )
