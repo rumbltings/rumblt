@@ -49,6 +49,7 @@ export class Dashboard extends Component{
 
    toggleClose(){
        this.setState({toggleTextPost: false})
+       this.setState({toggleImgPost: false})
    }
 
     getLoggedUser () {
@@ -79,14 +80,14 @@ export class Dashboard extends Component{
         this.getLoggedUser();
         this.getAllUsers(); 
         this.getAllPosts();
-        let followers = this.props.getUserFollowers(this.props.authUser.uid);
-        let {payload} = followers;
-        payload.then((res) => {
-            console.log(res)
-        })
+        // let followers = this.props.getUserFollowers(this.props.authUser.uid);
+        // let {payload} = followers;
+        // payload.then((res) => {
+        //     console.log(res)
+        // })
     }
     
-    componentWillUnmount(){
+    componentWillUnmount(){ 
         this.setState({isDashCurrent: false})
     }
 
@@ -123,16 +124,24 @@ export class Dashboard extends Component{
                     </div>
 
                 <div id="createnew">
-
-                    {this.state.toggleTextPost ? 
+                {this.state.toggleTextPost  ? 
                     <div id="textpostwrapper">
-                    <TextPost toggleClose={this.toggleClose}/>
+                <TextPost toggleClose={this.toggleClose}/>
+
+                </div>
+
+                :
+                
+                this.state.toggleImgPost ?
+
+                <div id="textpostwrapper">
+                <ImgPost toggleClose={this.toggleClose}/>
+                   
                     </div>
-                    
-                    :
-                    null
+                :
+                null
                 }
-                <div id={this.state.toggleTextPost ? "nodisplay" : "createnewwrapper"}>
+                <div id={this.state.toggleTextPost || this.state.toggleImgPost ? "nodisplay" : "createnewwrapper"}>
                     <div id="text" onClick={this.toggleTextInput}>
                     <InsertText />
                     <div className="atitle">

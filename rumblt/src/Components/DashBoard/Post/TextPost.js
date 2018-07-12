@@ -69,4 +69,3 @@ const mapStateToProps = (state) => ({
    const authCondition = (authUser) => !!authUser;
    
    export default connect(mapStateToProps)(TextPost);
-
