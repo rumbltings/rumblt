@@ -81,6 +81,7 @@
     padding-right: 40px;
     display: flex;
     justify-content: flex-end;
+    z-index: 101;
 }
 
 .userinfomod{
@@ -89,7 +90,7 @@
     width: 300px;
     overflow: hidden;
     transition: .75s ease width, 1s ease height;
-    
+    z-index: 101;
 }
 
 .chatmod{
@@ -98,6 +99,8 @@
     height: 330px;
     overflow: hidden;
     transition: .75s ease height, 1s ease width;
+    z-index: 101;
+    
 }
 
 .hidemodal{
@@ -113,6 +116,22 @@
 #headerLogo:hover{
     animation: rainbow .5s infinite;
 }
+
+.subheader{
+    background: #36465d;
+    width: 100vw;
+    border-top: 1px white solid;
+    border-bottom: 1px white solid;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    font: 12px/1.4 "Helvetica Neue", "HelveticaNeue", Helvetica, Arial, sans-serif;
+    color:  rgba(255, 255, 255, 0.781);
+    font-weight: 700;
+    font: bold;
+    position: fixed;
+    z-index: 100;
+  }
 
 @keyframes rainbow{
     0%{fill: pink}

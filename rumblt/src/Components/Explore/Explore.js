@@ -10,6 +10,9 @@ import './Explore.css';
 import {connect} from 'react-redux';
 import ChatUsers from '../DashBoard/ChatUsers';
 import ExplorePosts from './ExplorePosts/ExplorePosts';
+import MasonryInfiniteScroller from 'react-masonry-infinite';
+
+
 
 
  class Explore extends Component{
@@ -41,8 +44,8 @@ import ExplorePosts from './ExplorePosts/ExplorePosts';
     //Also also, run the method that loads the blog posts that have the most “love”s (“Trending”). 
     //NOTE: On the back end, sort the posts from most loves to least.
     componentDidMount(){
-      document.body.background = 'pink';
-      // this.setState({isExploreCurrent: true})
+      document.body.background = '#36465d';
+      this.setState({isExploreCurrent: true})
       // this.handleChangeToTrending();
       // this.getFollowedBlogIds();
       this.getAllPosts();
@@ -151,18 +154,36 @@ import ExplorePosts from './ExplorePosts/ExplorePosts';
         return(
             <div id='exploremain'>
             <div id="headerdiv">
-              <MainHeader currentuser={this.props.authUser.uid}/>
-              <section className='subheader'>
-              <div className="categories">
-                <p className='trending' onClick={this.handleChangeToTrending}>Trending</p>
-                <p className='staff_picks' onClick={this.handleChangeToStaffPicks}>Staff Picks</p>
-                <p className='text' onClick={this.handleChangeToText}>Text</p>
-                <p className='photos' onClick={this.handleChangeToPhotos}>Photos</p>
-              </div>
-              </section>
+              <MainHeader currentuser={this.props.authUser.uid} isExploreCurrent={this.state.isExploreCurrent}/>
             </div>
              <div id="explorebody">
-                  <div id="exploreposts">
+                  {/* <div id="exploreposts" class="grid">
+                  {this.state.posts.map(post=>{
+                    return <div key={post.id} id='eppost' class="grid-item" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": 200 }'>
+                      <ExplorePosts {...post}/>
+                    </div>
+                  })}
+                  </div> */}
+
+
+                 <MasonryInfiniteScroller
+                sizes={[{ columns: 1, gutter: 15 }, { mq: '768px', columns: 2, gutter: 15 }, { mq: '1024px', columns: 3, gutter: 15 }]}
+    // hasMore={this.state.hasMore}
+    // loadMore={() => this.setState({ elements: this.state.elements.push("Element") })}
+>
+    {
+        this.state.posts.map(post =>
+            <div key={post.id} >
+            <ExplorePosts {...post}/>
+            </div>
+        )
+    }
+</MasonryInfiniteScroller>
+
+
+
+
+                  <div id="postcontainer">
                   <div id="explorechat">
                   <div id="chatheader">
                     RECOMMENDED CHAT
@@ -173,13 +194,11 @@ import ExplorePosts from './ExplorePosts/ExplorePosts';
                     </div>
                     </div>
                   </div>
-                  {this.state.posts.map(post=>{
-                    return <div key={post.id} id='eppost'>
-                      <ExplorePosts {...post}/>
-                    </div>
-                  })}
                   </div>
              </div>
+             <footer>
+               
+             </footer>
             </div>
         )
     }
