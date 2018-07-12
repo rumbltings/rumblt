@@ -1,13 +1,13 @@
 // eslint-disable-next-line
 
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {connect} from 'react-redux';
 import {getUserFollowers} from '../../reducers/following';
 import MainHeader from './../Headers/Main Header/MainHeader';
-import reply from './icons/reply.svg';
-import reblog from './icons/reblog.svg';
 import love from './icons/love.svg';
+import notloved from './icons/notloved.svg';
 import default_profile_img from './temp_images/default_profile_pic.png';
 import './Profile.css';
 
@@ -27,17 +27,16 @@ export class Profile extends Component{
       blog_title: 'blog title',
       user_id: '',
       posts: [],
-      followed_info: [],
+      like_ids: [],
       subheader: 'Posts'
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       this.getPostsByUser = this.getPostsByUser.bind(this);
-      this.getFollowedBlogInfo = this.getFollowedBlogInfo.bind(this);
-      // this.handleChangeToUserLikes = this.handleChangeToUserLikes.bind(this);
-      // this.handleFollowBlog = this.handleFollowBlog.bind(this);
-      // this.handleUnfollowBlog = this.handleUnfollowBlog.bind(this);
-      // this.handleReblogOnClick = this.handleReblogOnClick.bind(this);
-      // this.handleLoveOnClick = this.handleLoveOnClick.bind(this);
+      this.getLikeIds = this.getLikeIds.bind(this);
+      this.handleChangeToPosts = this.handleChangeToPosts.bind(this);
+      this.handleChangeToLikes = this.handleChangeToLikes.bind(this);
+      this.handlePostLikeOnClick = this.handlePostLikeOnClick.bind(this);
+      this.handlePostUnlikeOnClick = this.handlePostUnlikeOnClick.bind(this);
     }
 
 //When the component mounts, axios.get the profile pic, (and get username from elsewhere), set on state
@@ -48,8 +47,9 @@ componentDidMount() {
     this.setState({isExploreCurrent: true});
     this.retriveProfileData();
     this.getPostsByUser();
-    this.getFollowedBlogInfo();
-    console.log(this.state.tiles + 'state in profile')
+    // this.getFollowedBlogInfo();
+    this.getLikeIds();
+    // console.log(this.state.tiles + 'state in profile')
   }
 
 //When the component unmounts, set the 'isExploreCurrent' (in state) to 'false'.
@@ -59,7 +59,7 @@ componentWillUnmount(){
 
 retriveProfileData () {
   axios.get(`/api/users/${this.props.match.params.userid}`).then((res) => {
-    console.log('profile component - retriveProfileData', res.data[0]);
+    // console.log('profile component - retriveProfileData', res.data[0]);
     this.setState({
       profile_pic: res.data[0].userimg,
       blog_title: res.data[0].blogtitle,
@@ -71,79 +71,66 @@ retriveProfileData () {
 getPostsByUser() {
   this.setState({subheader: 'Posts'});
   axios.get(`/api/posts/${this.props.match.params.userid}`).then( response => {
-    console.log('profile posts results', response.data)
+    // console.log('profile posts results', response.data)
     this.setState({posts: response.data});
   }).catch ( response => {
     console.log('get profile posts error', response);
   })
 }
 
-//When this function is invoked, get the user info of the blogs that are followed
-//and set that info on state
-getFollowedBlogInfo() {
-  axios.get(`/api/get_blogs_followed_info/${this.props.match.params.userid}`).then( response => {
-    console.log('get blogs followed info results', response.data);
-    this.setState({
-      followed_info: response.data
+getLikeIds() {
+  axios.get(`/api/get_like_ids/${this.props.match.params.userid}`).then( response => {
+    // console.log('TEST get like ids', response.data);
+    let newArray = response.data.map( obj => {
+      return +obj.postid
     })
-  }).catch( response => {
-    console.log('get blogs followed info error', response);
+    // console.log('newArray!!', newArray)
+    this.setState({like_ids: newArray});
+  }).catch( error => {
+    console.log('get like ids error', error);
   })
 }
 
 //Set up method handleChangeToPosts() axios.get the posts they have made,  
 //(starting with the most recent), set them on state
+handleChangeToPosts() {
+  this.getPostsByUser();
+}
 
-//Set up method handleChangeToTrending() axios.get the posts they have made 
+//Set up method handleChangeToLikes() axios.get the posts they have made 
 //which have the most “hearts”. Sort from most to least.
-
-getLikesByUser() {
+handleChangeToLikes() {
   this.setState({subheader: 'Likes'});
-  axios.get(`/api/userLikes/${this.props.match.params.userid}`).then( likedPosts => {
-    console.log('get profile trending posts results', likedPosts);
-    //this.setState({profile_trending: response});
-  }).catch ( response => {
-    console.log('get profile trending posts results', response);
+  axios.get(`/api/get_profile_user_likes/${this.props.match.params.userid}`).then( response => {
+    // console.log('get profile liked posts results', response.data);
+    this.setState({posts: response.data});
+  }).catch ( error => {
+    console.log('get profile trending posts error', error);
   })
 }
 
-//Set up method handleFollowBlog() axios.post the blog as one of the blogs 
-//you are following
-//----
-//(follow up with method that gets the list of people you are following now, 
-//and set that on state)
+//Set up handlePostLikeOnClick()
+handlePostLikeOnClick(userid, postid) {
+  axios.post(`/api/likes/`, {
+    userid: userid,
+    postid: postid
+  }).then( () => {
+    this.getLikeIds();
+  }).catch( error => {
+    console.log('add post like error', error)
+  })
+}
 
-// handleFollowBlog(username) {
-//   axios.post(`/api/add_blog_to_follow_list`, {
-//     follow_blog: username
-//   }).then( response => {
-//     console.log('add blog to follow list results', response);
-//     this.getFollowedBlogIds();
-//   }).catch( response => {
-//     console.log('add blog to foll list error response', response);
-//   })
-// }
-
-//Set up method handleUnfollowBlog() axios.delete the blog as one you are following.
-//----
-//(follow up with method that gets the list of people you are following now, and set 
-//that on state)
-
-// handleUnfollowBlog(username) {
-//   axios.delete(
-//     `/api/remove_blog_from_follow_list/${username}`
-//   ).then( response => {
-//     console.log('remove blog from follow list results', response);
-//     this.getFollowedBlogIds();
-//   }).catch( response => {
-//     console.log('remove blog from follow list error response', response);
-//   })
-// }
-
-
-
-//Set up handleLoveOnClick()
-handleLoveOnClick() {}
+//Set up handlePostUnlikeOnClick()
+handlePostUnlikeOnClick(userid, postid) {
+  axios.delete(
+    `/api/likes/${userid}/${postid}`
+  ).then( () => {
+    this.getLikeIds();
+  }).catch( error => {
+    console.log('delete post like error', error)
+  })
+}
 
 
 render(){
@@ -159,18 +146,17 @@ render(){
 
           <p className='name_of_blog'>{this.state.blog_title}</p>
 
-          {this.props.match.params.userid !== this.state.user_id ?
-          <div><button>Follow</button><button>Unfollow</button></div>:
-          null}
-
           <div className='profile_navs_container'>
             <p className='profile_posts_nav' onClick={this.getPostsByUser}>Posts</p>
-            <p className='profile_trending_nav'>Likes</p>
-            <p className='profile_create_new_post_nav'>Create new post</p>
+            <p className='profile_trending_nav' onClick={this.handleChangeToLikes}>Likes</p>
+            <Link to='/dashboard'>
+              <p className='profile_create_new_post_nav'>Create new post</p>
+            </Link>
           </div>
           
           </div>
           <div className='posts_and_following_list'>
+          {this.state.posts[0] ?
             <div className='profile_posts'>
               {this.state.posts.map( obj => {
                 return (
@@ -182,19 +168,18 @@ render(){
                     </div>
 
                     <div className='profile_post_footer'>
-                      <p className='number_of_likes'>Number of likes</p>
                       <div className='profile_post_actions_container'>
-                        <img className='profile_post_action_reblog' src={reblog} alt='Reblog Icon' style={imgStyle} />
-                        <img className='profile_post_action_love' src={love} alt='Love Icon' style={imgStyle} />
+                        {this.state.like_ids.indexOf(obj.id) < 0 ? 
+                          <img className='profile_post_action_notloved' src={notloved} alt='Not Loved Icon' style={imgStyle} onClick={ () => this.handlePostLikeOnClick(this.props.match.params.userid, obj.id) }/> : 
+                          <img className='profile_post_action_loved' src={love} alt='Love Icon' style={imgStyle} onClick={ () => this.handlePostUnlikeOnClick(this.props.match.params.userid, obj.id) }/>
+                        }
                       </div>
                     </div>
                     </div>
                 )
               })}
-            </div>
-            <div className='following_list'>
-            <h2>FOLLOWED BLOGS</h2>
-            </div>
+            </div> :
+            <p>no posts made yet!</p> }
           </div>
         </section>
       </div>
