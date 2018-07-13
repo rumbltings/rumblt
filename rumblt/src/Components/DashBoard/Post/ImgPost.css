@@ -25,6 +25,24 @@
     border: none;
 }
 
+#inputtwo {
+    width: 94%;
+    height: 100px;
+    min-width: 94%;
+    min-height: 100px;
+    max-width: 95%;
+    border: none;
+}
+
+#tag {
+    width: 94%;
+    height: 100px;
+    min-width: 94%;
+    min-height: 100px;
+    max-width: 95%;
+    border: none;
+}
+
 .buttonwrapper{
     width: 95%;
     margin-top: 15px;
