@@ -27,9 +27,9 @@ componentDidMount(){
     })
 }
 
-followUser() {
-    axios.post(`/api/newFollower/${this.props.authUser.uid}/:followeduserid`)
-}
+// followUser() {
+//     axios.post(`/api/newFollower/${this.props.authUser.uid}/:followeduserid`)
+// }
 
     render(){
         return(

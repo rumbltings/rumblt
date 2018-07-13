@@ -59,6 +59,7 @@ export class ImgPost extends Component {
                 placeholder='Whatcha thinkin about?'
                 />
                  <input
+                 id='tag'
                 value={this.state.tagInput}
                 onChange={this.handleTagChange}
                 type='text'
