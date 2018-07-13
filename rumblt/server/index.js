@@ -200,6 +200,16 @@ app.post(`/api/newFollower/:userid/:followeduserid`, (req, res) => {
     })
 }) 
 
+app.delete(`/api/unfollow/:userid/:followeduserid`, (req, res)=> {
+    let {userid, followeduserid} = req.params;
+    req.app.get('db').unfollow([userid, followeduserid]).then(ok=> {
+        res.sendStatus(200);
+    }).catch((err)=> {
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
 
 
 app.listen(SERVER_PORT, () => {console.log(`listening on ${SERVER_PORT}`)});

@@ -20,8 +20,8 @@ var imgStyle = {
 
 
 export class Profile extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
 
     this.state = {
       isExploreCurrent: false,
@@ -161,6 +161,7 @@ numberWithCommas(){
 
 
 render(){
+  console.log(this.props.match.params.userid)
   return(
       <div id='profileMain'>
       <div id="headerdiv">
