@@ -77,7 +77,7 @@ numberWithCommas(){
                 <div className="dpcontent">
                 {this.props.type === 'img' ?
                 <div className="pdcontent">
-                <img src={this.props.content} alt=""/>
+                <img src={this.props.img} alt=""/>
                 </div>
                 :
                 <div className='pdtext'>

@@ -178,8 +178,8 @@ import MasonryInfiniteScroller from 'react-masonry-infinite';
             </div>
         )
     }
-</MasonryInfiniteScroller>
 
+</MasonryInfiniteScroller>
 
 
 

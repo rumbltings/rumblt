@@ -15,12 +15,17 @@ export default class RandomPost extends Component{
     }
 
     componentDidMount(){
+        console.log(this.props.userid)
         axios.get('/api/randpost/').then(res =>{
 
             this.setState({displayPost: res.data});
     }
 )
 
+    }
+
+    followUser() {
+        axios.post(`/api/newFollower/${this.props.authUser.uid}/:followeduserid`)
     }
 
     numberWithCommas(){
@@ -35,9 +40,9 @@ export default class RandomPost extends Component{
                 <div className='radar'>
                     RADAR
                 </div>
-                <div id="rpheader" onClick={() => {window.location.href=`http://localhost:3000/#/profile/${t.userid}`}}>
+                <div id="rpheader">
                 <div className="rpright">
-                <div id='rpimage'>
+                <div id='rpimage'  onClick={() => {window.location.href=`http://localhost:3000/#/profile/${t.userid}`}}>
                    {t.userimg === null ? <img src='https://78.media.tumblr.com/9f9b498bf798ef43dddeaa78cec7b027/tumblr_o51oavbMDx1ugpbmuo7_540.png' alt=""/> : <img src={t.userimg} alt=""/>}
                     
                 </div>
@@ -59,7 +64,7 @@ export default class RandomPost extends Component{
                 <div id="rpcontent">
                 {this.state.displayPost.type === 'img' ?
                     <div id='rpbkg'>
-                        <img src={t.content} alt=""/>
+                        <img src={t.img ? t.img : t.content} alt=""/>
                     </div>
                 : <div id='nonimage'>
                     {t.content}
