@@ -8,24 +8,46 @@ export class UserInfo extends React.Component {
     constructor (props) {
         super(props);
         this.state = {
-            currentuser: {
                 id: '',
                 img: '',
                 username: '',
                 blogtitle: '',
-            }
+                followingCount:0,
+                followerCount:0
         }
+        this.getFollowerCount = this.getFollowerCount.bind(this);
+        this.getFollowingCount = this.getFollowingCount.bind(this);
     }
 
     componentDidMount () {
+        this.getFollowerCount();
+        this.getFollowingCount();
+
         this.setState({id: this.props.authUser.uid })
 
         axios.get(`/api/users/${this.props.authUser.uid}`).then((res) => {
-            
+            let {userimg, username, blogtitle} = res.data[0];
+            this.setState({img: userimg, username: username, blogtitle: blogtitle})
+            this.getFollowingCount();
+        })
+    }
+
+    getFollowingCount () {
+        axios.get(`/api/followingCount/${this.props.authUser.uid}`).then((res) => {
+            console.log(res.data)
+            this.setState({followingCount: res.data[0]});
+        })
+    }
+
+    getFollowerCount() {
+        axios.get(`/api/followerCount/${this.props.authUser.uid}`).then((res) => {
+            this.setState({followerCount: res.data[0]});
         })
     }
 
     render () {
+        console.log(this.state)
+        console.log(this.props)
     return(
         <div id='ui'>
             <div className="uitop">
@@ -47,7 +69,7 @@ export class UserInfo extends React.Component {
                 <div className="leftwrapper">
 
                     <div className="uiimage">
-                    IMG
+                    
                     </div>
 
                     <div className="uitext">
@@ -67,7 +89,7 @@ export class UserInfo extends React.Component {
                 <div className="leftwrapper">
 
                     <div className="uiimage">
-                    IMG
+                    
                     </div>
 
                     <div className="uitext">
@@ -77,7 +99,7 @@ export class UserInfo extends React.Component {
                 </div>
 
                     <div className="uinum">
-                    #
+                    {this.state.followingCount.count}
                     </div>
 
                 </div>
@@ -86,7 +108,7 @@ export class UserInfo extends React.Component {
 
                 <div className="leftwrapper">
                     <div className="uiimage">
-                    IMG
+                    
                     </div>
 
                     <div className="uitext">
@@ -101,7 +123,7 @@ export class UserInfo extends React.Component {
                 <div className="leftwrapper">
                     
                     <div className="uiimage">
-                    IMG
+                    
                     </div>
 
                     <div className="uitext">
@@ -127,18 +149,19 @@ export class UserInfo extends React.Component {
 
                 </div>
 
-                <div className="uiuser hov">
+                <div className="uiuser hov" onClick={() => {window.location.href=`http://localhost:3000/#/profile/${this.state.id
+            }`}}>
                 
                 <div className="uiuserimg">
-                <img src={this.props.authUser} alt=""/>
+                <img src={this.state.img} alt=""/>
                 </div>
 
                 <div className="uiuserinfo">
                 <div className="uiusername">
-                username
+                {this.state.username}
                 </div>
                 <div className="uiblogtitle">
-                blogtitle
+                {this.state.blogtitle}
                 </div>
                 </div>
 
@@ -154,8 +177,11 @@ export class UserInfo extends React.Component {
                 </div>
 
                 <div className="uibtext hov">
-                <div className="uitext">
+                    <div className="uitext">
                     Followers
+                    </div>
+                    <div className='uinum'>
+                        {this.state.followerCount.count}
                     </div>
                 </div>
 

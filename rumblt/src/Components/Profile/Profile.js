@@ -34,7 +34,8 @@ export class Profile extends Component{
       headerImage: '',
       username: 'username',
       name:'name',
-      likenum: 0
+      likenum: 0,
+      followedByAuthUser: false
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       this.getPostsByUser = this.getPostsByUser.bind(this);
@@ -43,12 +44,15 @@ export class Profile extends Component{
       this.handleChangeToLikes = this.handleChangeToLikes.bind(this);
       this.handlePostLikeOnClick = this.handlePostLikeOnClick.bind(this);
       this.handlePostUnlikeOnClick = this.handlePostUnlikeOnClick.bind(this);
+      this.checkFollowStatus = this.checkFollowStatus.bind(this);
     }
 
 //When the component mounts, axios.get the profile pic, (and get username from elsewhere), set on state
 //Also axios.get the posts they have made  (starting with the most recent), set them on state
 //Also axios.get the people you are following (does not show if you are on someone else’s page), set them on state
 componentDidMount() {
+  this.checkFollowStatus();
+
     document.body.background = '#36465d';
     this.setState({isExploreCurrent: true});
     this.retriveProfileData();
@@ -57,7 +61,6 @@ componentDidMount() {
     this.getLikeIds();
     this.getHeaderImg();
 
-    // console.log(this.state.tiles + 'state in profile')
   }
 
 //When the component unmounts, set the 'isExploreCurrent' (in state) to 'false'.
@@ -75,7 +78,7 @@ retriveProfileData () {
       blog_title: res.data[0].blogtitle,
       user_id: res.data[0].userid,
       username: res.data[0].username,
-      name: res.data[0].name
+      name: res.data[0].name,
     })
   })
 }
@@ -159,6 +162,29 @@ numberWithCommas(){
   return num;
 }
 
+follow() {
+  axios.post(`/api/newFollower/${this.props.authUser.uid}/${this.props.match.params.userid}`).then(() => {
+    console.log('followed');
+  })
+}
+
+unfollow() {
+  axios.delete(`/api/unfollow/${this.props.authUser.uid}/${this.props.match.params.userid}`).then(() => {
+    console.log('unfollowed');
+  })
+}
+
+checkFollowStatus() {
+  axios.get(`/api/user/following/${this.props.authUser.uid}`).then(res => {
+    res.data.map((el, id) => {
+      if(el.followeduserid == this.props.match.params.userid){
+        this.setState({followedByAuthUser: true})
+      }else {
+        this.setState({followedByAuthUser: false})
+      }
+    })
+  })
+}
 
 render(){
   console.log(this.props.match.params.userid)
@@ -188,8 +214,12 @@ render(){
           <div className='profile_navs_container'>
             <div className='profile_posts_nav ppn' onClick={this.getPostsByUser}>Posts</div>
             <div className='profile_trending_nav ppn' onClick={this.handleChangeToLikes}>Likes</div>
-            <div className="ppn">Follow</div>
-            
+            {
+            this.state.followedByAuthUser ?
+            <div className="ppn" onClick={()=> {this.unfollow(), this.setState({followedByAuthUser: false})}}>Unfollow</div>
+            :
+            <div className="ppn"  onClick={()=> {this.follow(), this.setState({followedByAuthUser: true})}}>Follow</div>
+            }
           </div>
           
           </div>
@@ -198,12 +228,11 @@ render(){
 
           {this.state.posts[0] ?
             <div className='profile_posts'>
-              {this.state.posts.map( obj => {
-                console.log(obj)
+              {this.state.posts.map( (obj, i) => {
         
                 return (
 
-                  <div className="postcontainer">
+                  <div className="postcontainer" key={i}>
                   <div className="postimgcontainer">
                   <img src={obj.userimg} alt=""/>
                   </div>

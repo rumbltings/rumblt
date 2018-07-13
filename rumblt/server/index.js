@@ -181,6 +181,26 @@ app.post('/api/newuser/', (req, res)=> {
   })
 })
 
+app.get(`/api/followerCount/:followeduserid`, (req, res) => {
+    let {followeduserid} = req.params;
+    req.app.get('db').followersCount([followeduserid]).then(followerCount => {
+        res.status(200).send(followerCount);
+    }).catch(err=> {
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
+app.get(`/api/followingCount/:userid`, (req, res) => {
+    let {userid} = req.params;
+    req.app.get('db').getFollowingCount([userid]).then(followingCount => {
+        res.status(200).send(followingCount);
+    }).catch(err=> {
+        console.log(err);
+        res.status(500).send(err)
+    })
+})
+
 app.get(`/api/followers/:userid`, (req, res) => {
     let {userid} = req.params;
     req.app.get('db').getUserFollowers([userid]).then(followers => {
@@ -208,8 +228,17 @@ app.delete(`/api/unfollow/:userid/:followeduserid`, (req, res)=> {
         console.log(err);
         res.status(500).send(err)
     })
-})
+ })
 
+ app.get(`/api/user/following/:userid`, (req, res) => {
+     let {userid} = req.params;
+     req.app.get('db').getfollowing([userid]).then(following => {
+         res.status(200).send(following);
+     }).catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+    })
+ })
 
 
 app.listen(SERVER_PORT, () => {console.log(`listening on ${SERVER_PORT}`)});
