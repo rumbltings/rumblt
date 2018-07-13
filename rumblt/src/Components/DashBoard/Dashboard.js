@@ -38,6 +38,7 @@ export class Dashboard extends Component{
         this.toggleTextInput = this.toggleTextInput.bind(this);
         this.toggleClose = this.toggleClose.bind(this);
         this.toggleImgPost = this.toggleImgPost.bind(this);
+        this.getAllPosts = this.getAllPosts.bind(this);
     }
 
     getAllPosts(){
@@ -48,9 +49,9 @@ export class Dashboard extends Component{
     }
 
    toggleClose(){
-       this.setState({toggleTextPost: false})
-       this.setState({toggleImgPost: false})
-       this.getAllPosts();
+
+    this.setState({toggleTextPost: false}, ()=> {this.getAllPosts()})
+    this.setState({toggleImgPost: false}, ()=> {this.getAllPosts()})
    }
 
     getLoggedUser () {
