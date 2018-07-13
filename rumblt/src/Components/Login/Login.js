@@ -42,7 +42,7 @@ import SignupForm from '../Signup/Signup';
     }
    
     getRandomImage(){
-        var queries = ['shibe', 'doge', 'meme', 'art', 'goals', 'anime', 'cats', 'funny', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms', 'psychedelic', 'god'];
+        var queries = ['shibe', 'doge', 'meme', 'art', 'anime', 'cats', 'funny', 'disney', 'food', 'coffee', 'animals', 'trippy', 'mushrooms', 'psychedelic', 'god'];
 
         var query= queries[Math.floor(Math.random()*queries.length)]
 
