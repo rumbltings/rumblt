@@ -64,18 +64,90 @@
 
 .ppn{
   margin-left: 20px;
-  margin-right: 20px
+  margin-right: 20px;
 }
+
+.ppn:hover{
+  color: white;
+  cursor: pointer;
+}
+
 
 .name_of_blog{
   font-size: 30px;
 }
 
 .profileuserinfo{
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content:center;
   align-items: center;
-  background: pink;
   height: 80px;
+  margin-bottom: 20px;
+}
+
+.posts_and_following_list{
+  display: flex;
+  justify-content: center;
+}
+
+.profileuserinfo h1{
+  display: flex;
+  margin-top: 10px;
+  text-align: center;
+  font-size: 60px;
+}
+
+.profile_post{
+  width: 540px;
+  background: white;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
+
+.profile_post img{
+  width: 540px;
+  height: auto;
+}
+
+.postimgcontainer{
+  height: 64px;
+    width: 64px;
+    border-radius: 4px;
+    position: sticky;
+    top: 74px;
+    overflow: hidden;
+  margin-right: 15px;
+}
+.postimgcontainer img{
+height: 64px;
+width: auto;
+}
+
+.postcontenttext{
+  padding: 15px;
+}
+
+.postcontainer{
+  display: flex;
+}
+
+.ppheader{
+  height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    font-weight: 600;
+}
+
+.profile_post_footer{
+  min-height: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color:  #667284;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
