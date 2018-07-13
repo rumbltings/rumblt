@@ -10,6 +10,8 @@ import love from './icons/love.svg';
 import notloved from './icons/notloved.svg';
 import default_profile_img from './temp_images/default_profile_pic.png';
 import './Profile.css';
+import ProfileFeed from './ProfileFeed';
+import PFTwo from './PFTwo';
 
 var imgStyle = {
   width: 25,
@@ -28,7 +30,11 @@ export class Profile extends Component{
       user_id: '',
       posts: [],
       like_ids: [],
-      subheader: 'Posts'
+      subheader: 'Posts',
+      headerImage: '',
+      username: 'username',
+      name:'name',
+      likenum: 0
       }
       this.retriveProfileData = this.retriveProfileData.bind(this);
       this.getPostsByUser = this.getPostsByUser.bind(this);
@@ -49,6 +55,8 @@ componentDidMount() {
     this.getPostsByUser();
     // this.getFollowedBlogInfo();
     this.getLikeIds();
+    this.getHeaderImg();
+
     // console.log(this.state.tiles + 'state in profile')
   }
 
@@ -57,13 +65,17 @@ componentWillUnmount(){
     this.setState({isExploreCurrent: false})
   }
 
+
+
 retriveProfileData () {
   axios.get(`/api/users/${this.props.match.params.userid}`).then((res) => {
-    // console.log('profile component - retriveProfileData', res.data[0]);
+    console.log('profile component - retriveProfileData', res.data[0]);
     this.setState({
       profile_pic: res.data[0].userimg,
       blog_title: res.data[0].blogtitle,
-      user_id: res.data[0].userid
+      user_id: res.data[0].userid,
+      username: res.data[0].username,
+      name: res.data[0].name
     })
   })
 }
@@ -76,6 +88,14 @@ getPostsByUser() {
   }).catch ( response => {
     console.log('get profile posts error', response);
   })
+}
+
+getHeaderImg(){
+  var images = ['https://media.giphy.com/media/leaEbNXAEY0rm/giphy.gif', 'https://i.imgur.com/nbhzCHk.gif', 'https://media.giphy.com/media/wGY9K8upRdJFm/giphy.gif','http://community.wolfram.com//c/portal/getImageAttachment?filename=vgrid17c.gif&userId=610054','https://s.tmimgcdn.com/blog/wp-content/uploads/2017/07/5963490e3d940026220505.gif?x54449', ];
+
+  var image= images[Math.floor(Math.random()*images.length)]
+this.setState({headerImage: image})
+  
 }
 
 getLikeIds() {
@@ -116,6 +136,7 @@ handlePostLikeOnClick(userid, postid) {
     postid: postid
   }).then( () => {
     this.getLikeIds();
+    this.setState({likenum: this.state.likenum+1})
   }).catch( error => {
     console.log('add post like error', error)
   })
@@ -132,35 +153,64 @@ handlePostUnlikeOnClick(userid, postid) {
   })
 }
 
+numberWithCommas(){
+  const num = Math.floor(Math.random()*10000);
+  var commaNum = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return num;
+}
+
 
 render(){
   return(
-      <div>
+      <div id='profileMain'>
+      <div id="headerdiv">
         <MainHeader />
+      </div>
         <section className='below_header'>
+        <div id="headerimgcontainer">
+        <img id='headerImg' src={this.state.headerImage} alt=""/>
+        </div>
           <div className='profile_info_and_nav'>
 
+          <div className="profpiccontainer">
           {this.state.profile_pic != null ? 
-          <img className='profile_pic' src={this.state.profile_pic} alt='profile pic'/> : 
-          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>}
 
-          <p className='name_of_blog'>{this.state.blog_title}</p>
+<img className='profile_pic' src={this.state.profile_pic} alt='profile pic'/> : 
+          <img className='profile_pic' src={default_profile_img} alt='profile pic'/>}
+          </div>
+
+<div className="profileuserinfo">
+<h1  className='name_of_blog'>{this.state.username}</h1>
+<h3>{this.state.blog_title}</h3>
+</div>
 
           <div className='profile_navs_container'>
-            <p className='profile_posts_nav' onClick={this.getPostsByUser}>Posts</p>
-            <p className='profile_trending_nav' onClick={this.handleChangeToLikes}>Likes</p>
-            <Link to='/dashboard'>
-              <p className='profile_create_new_post_nav'>Create new post</p>
-            </Link>
+            <div className='profile_posts_nav ppn' onClick={this.getPostsByUser}>Posts</div>
+            <div className='profile_trending_nav ppn' onClick={this.handleChangeToLikes}>Likes</div>
+            <div className="ppn">Follow</div>
+            
           </div>
           
           </div>
           <div className='posts_and_following_list'>
+
+
           {this.state.posts[0] ?
             <div className='profile_posts'>
               {this.state.posts.map( obj => {
+                console.log(obj)
+        
                 return (
+
+                  <div className="postcontainer">
+                  <div className="postimgcontainer">
+                  <img src={obj.userimg} alt=""/>
+                  </div>
                   <div key={obj.id} className='profile_post'>
+
+                  <div className="ppheader">
+                  {obj.username}
+                  </div>
                     <div className='profile_post_content_container'>
                       {obj.type === 'img' ? 
                       <img className='postcontentimg' src={obj.img} alt='profile post content' /> : 
@@ -168,18 +218,30 @@ render(){
                     </div>
 
                     <div className='profile_post_footer'>
+                    <div className="ppfnotes">
+                    {`${this.numberWithCommas()} notes`}
+                    </div>
                       <div className='profile_post_actions_container'>
-                        {this.state.like_ids.indexOf(obj.id) < 0 ? 
-                          <img className='profile_post_action_notloved' src={notloved} alt='Not Loved Icon' style={imgStyle} onClick={ () => this.handlePostLikeOnClick(this.props.match.params.userid, obj.id) }/> : 
-                          <img className='profile_post_action_loved' src={love} alt='Love Icon' style={imgStyle} onClick={ () => this.handlePostUnlikeOnClick(this.props.match.params.userid, obj.id) }/>
-                        }
+                      <svg 
+                id="footicon" 
+                data-name="Layer 1" 
+                xmlns="http://www.w3.org/2000/svg" 
+                viewBox="0 0 315 278.01">
+                <title>love</title>
+                <path id={this.state.liked ? 'heartActive' : 'heart'}
+                d="M663,211a81,81,0,0,0-146-48.33A81,81,0,1,0,400.6,273.6L508.51,381.51a12,12,0,0,0,17,0L633.4,273.6A80.83,80.83,0,0,0,663,211Z" 
+                transform="translate(-359.5 -118.5)" 
+                />
+                </svg>
                       </div>
                     </div>
                     </div>
+                  </div>
                 )
               })}
             </div> :
             <p>no posts made yet!</p> }
+            
           </div>
         </section>
       </div>
