@@ -62,7 +62,7 @@ import axios from 'axios';
     }
 
     render(){
-        // console.log('props cont',this.props)
+        console.log('props cont',this.props)
         return(
            
             <div id='maindashfeed'>
@@ -74,7 +74,7 @@ import axios from 'axios';
                 </div>
 
                 <div className="postdisplay">
-                <div className="pdheader">
+                <div className="pdheader" onClick={() => {window.location.href=`/#/profile/${this.props.userid}`}}>
                 {this.props.username}
                 </div>
                 {this.props.type === 'img' ?
